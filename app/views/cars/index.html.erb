@@ -1,0 +1,29 @@
+<h1>Pages#home</h1>
+<p>Cars Index</p>
+
+<div class="bg">
+  <div class="container">
+    <div class="text-primary">
+      <div class="cards">
+        <% @cars.each do |car| %>
+
+          <div class="card-trip m-2">
+            <%= link_to car_path(car), class:"btn" do %>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj85G1Zl_5aj8CG-FYz79H0nsLghX4IkVcJJ5y80yyTkpn6cXk&s"/>
+            <% end %>
+
+            <div class="card-trip-infos">
+              <div>
+                <h4 class="card-title block-with-text mb-2"><%= car.model %> </h4>
+                <p class="card-text mr-2"><%= car.brand %> </p>
+                <h2 class="card-trip-pricing text-secondary mt-2"><%= car.plate %></h2>
+              </div>
+              <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered"/>
+            </div>
+          </div>
+
+        <% end %>        
+      </div>
+    </div>
+  </div>
+</div>

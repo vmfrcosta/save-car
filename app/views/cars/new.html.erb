@@ -1,0 +1,29 @@
+<div class="bg">
+  <div class="container mt-3">
+    <div class="row align-items-center">
+      <div class="col-sm-12 offset-md-3 col-md-6 text-primary">
+        <div class="container">
+          <h2 class="mt-5 pt-5 mb-3 ml-4"><strong>Adicionar carro</strong></h2>
+
+            <%= simple_form_for @car, method: 'post' do |f| %>
+              <%= f.error_notification %>
+              <%= f.input :brand, label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
+                          input_html: { class: "rounded-pill pl-4 border-0" } %>
+
+              <%= f.input :model, label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
+                          input_html: { class: "rounded-pill pl-4 border-0" } %>
+
+              <%= f.input :car_type, label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
+                          input_html: { class: "rounded-pill pl-4 border-0" } %>
+
+              <%= f.input :plate, label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
+                          input_html: { class: "rounded-pill pl-4 border-0" } %>
+
+              <%= f.button :submit, class: "btn-secondary btn-block rounded-pill"  %>
+            <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
