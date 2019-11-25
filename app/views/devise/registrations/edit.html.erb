@@ -1,4 +1,4 @@
-<h2>Atualizar</h2>
+<h2>Atualizar cadastro</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
@@ -11,16 +11,16 @@
     <% end %>
 
     <%= f.input :password,
-                hint: "Deixe vazio caso não queira alterar",
+                hint: "Mantenha vazio caso não queira alterar sua senha",
                 required: false,
-                input_html: { autocomplete: "new-password" }, label: 'Senha' %>
+                input_html: { autocomplete: "nova-senha" }, label: 'Nova senha' %>
     <%= f.input :password_confirmation,
                 required: false,
-                input_html: { autocomplete: "new-password" }, label: 'Confirmação de senha' %>
+                input_html: { autocomplete: "nova-senha" }, label: 'Confirme sua nova senha' %>
     <%= f.input :current_password,
-                hint: "Coloque sua senha atual para confirmar as alterações",
-                required: false,
-                input_html: { autocomplete: "current-password" }, label: 'Senha atual' %>
+                hint: "Coloque sua senha atual para validar as alterações",
+                required: true,
+                input_html: { autocomplete: "senha-atual" }, label: 'Senha atual' %>
   </div>
 
   <div class="form-actions">
@@ -28,8 +28,8 @@
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3>Cancelar minha conta</h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>Insatisfeito? <%= link_to "Cancelar minha conta", registration_path(resource_name), data: { confirm: "Você tem certeza que deseja cancelar sua conta?" }, method: :delete %></p>
 
-<%= link_to "Back", :back %>
+<%= link_to "Voltar", :back %>
