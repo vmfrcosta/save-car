@@ -20,9 +20,10 @@ ActiveRecord::Schema.define(version: 2019_11_25_211532) do
     t.string "brand"
     t.string "model"
     t.string "plate"
-    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "car_type"
+    t.boolean "visible", default: true
     t.index ["user_id"], name: "index_cars_on_user_id"
   end
 
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_11_25_211532) do
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "visible"
     t.index ["user_id"], name: "index_reviews_on_user_id"
     t.index ["winch_id"], name: "index_reviews_on_winch_id"
   end
@@ -62,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_11_25_211532) do
     t.integer "total_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address"
     t.index ["car_id"], name: "index_trips_on_car_id"
     t.index ["winch_id"], name: "index_trips_on_winch_id"
   end
@@ -74,7 +77,11 @@ ActiveRecord::Schema.define(version: 2019_11_25_211532) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "winch", default: false
+    t.string "first_name"
+    t.string "last_name"
+    t.boolean "winch"
+    t.boolean "visible"
+    t.string "photo"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

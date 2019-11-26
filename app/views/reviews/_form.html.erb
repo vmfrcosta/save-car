@@ -1,0 +1,3 @@
+<%= simple_form_for [@winch, @review] do %>
+	<%= f.input :rating, collection: Review::RATING %>
+<% end %>

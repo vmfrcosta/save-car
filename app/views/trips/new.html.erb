@@ -1,0 +1,15 @@
+<div class="container mt-3">
+	<div class="map d-flex align-items-end justify-content-center" style="width: 100%; height: 500px; background-color: black">
+		<div class="mb-3" style="width: 800px">
+			<%= simple_form_for @trip do |f| %>
+				<div class="ask-geo d-flex mb-3 w-100">
+					<%= link_to 'Utilizar GPS', new_trip_path, class: 'btn btn-primary w-50 mr-3', id: 'get-location' %>
+					<h2 style="color: white" class="mr-3">ou</h2>
+					<%= f.input :address, input_html: { class: 'form-control w-100', placeholder: 'digitar o endereço' }, label: false  %>
+				</div>
+				<%= f.input :car_lat, input_html: { hidden: true }, label: false %>
+				<%= f.button :submit, 'Buscar guincho', class: 'btn btn-success btn-block' %>
+			<% end %>
+		</div>
+	</div>
+</div>
