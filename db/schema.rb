@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2019_11_26_184303) do
+ActiveRecord::Schema.define(version: 2019_11_25_211532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,7 +89,6 @@ ActiveRecord::Schema.define(version: 2019_11_26_184303) do
   create_table "winches", force: :cascade do |t|
     t.bigint "user_id"
     t.string "brand"
-    t.string "type"
     t.string "plate"
     t.integer "price_per_km"
     t.float "win_lat"
@@ -98,6 +96,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_184303) do
     t.boolean "on_duty"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "winch_type"
     t.index ["user_id"], name: "index_winches_on_user_id"
   end
 
