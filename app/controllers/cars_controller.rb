@@ -1,10 +1,23 @@
 class CarsController < ApplicationController
+  before_action :set_car, only: %i[show edit update destroy]
+
   def index
     @cars = current_user.cars
   end
 
   def show
+  end
 
+  def edit
+  end
+
+  def update
+    @car.update(car_params)
+    if @car.save
+      redirect_to cars_path
+    else
+      render :new
+    end
   end
 
   def new
@@ -21,6 +34,12 @@ class CarsController < ApplicationController
     end
   end
 
+  def destroy
+    @car.visible = false
+    @car.save
+    redirect_to cars_path
+  end
+
   private
 
   def car_params
@@ -30,5 +49,9 @@ class CarsController < ApplicationController
       :car_type,
       :plate
     )
+  end
+
+  def set_car
+    @car = Car.find(params[:id])
   end
 end
