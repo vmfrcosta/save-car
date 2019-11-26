@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2019_11_26_184303) do
 
   # These are extensions that must be enabled in order to support this database
@@ -20,9 +21,10 @@ ActiveRecord::Schema.define(version: 2019_11_26_184303) do
     t.string "brand"
     t.string "model"
     t.string "plate"
-    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "car_type"
+    t.boolean "visible", default: true
     t.index ["user_id"], name: "index_cars_on_user_id"
   end
 
