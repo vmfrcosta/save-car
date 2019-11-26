@@ -16,7 +16,7 @@ class CarsController < ApplicationController
     if @car.save
       redirect_to cars_path
     else
-      render :new
+      render :edit
     end
   end
 
