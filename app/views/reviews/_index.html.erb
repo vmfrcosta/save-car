@@ -1,0 +1,14 @@
+<%= link_to 'Deixa uma avaliação!', new_review_path %>
+<% @winch.reviews.each do |review| %>
+	<% if review.visible == true %>
+		<h3><%= "#{review.user.first_name} #{review.user.last_name}" %></h3>
+		<p>
+			<% review.rating.times do %>
+				<i class="fas fa-star"></i>
+			<% end %>
+		</p>
+		<p>
+			<%= review.content.capitalize %>
+		</p>
+	<% end %>
+<% end %>
