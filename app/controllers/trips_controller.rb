@@ -7,7 +7,8 @@ class TripsController < ApplicationController
   end
 
   def create
-    @trip
+    @trip = Trip.new(trip_params)
+    
   end
 
   private
