@@ -1,7 +1,7 @@
 import "bootstrap";
 import 'select2/dist/css/select2.css';
-import { getCarLocation } from '../plugins/location';
-import { setCarLocation } from '../plugins/location';
+import { getCarLocation } from '../components/location_notification';
+import { setCarLocation } from '../components/location_notification';
 import { initSelect2 } from '../components/init_select2';
 
 initSelect2();
