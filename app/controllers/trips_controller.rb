@@ -2,7 +2,7 @@ class TripsController < ApplicationController
   # skip_before_action :authenticate_user!, only: :new
   before_action :set_user
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
-  before_action :set_winch, only: [:new, :create]
+  before_action :set_winch, only: [:create]
 
   def index
     @trip = Trip.all
@@ -12,14 +12,13 @@ class TripsController < ApplicationController
   end
 
   def new
-    @trip.user = current_user
     @trip = Trip.new
   end
 
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    @trip.winch = @winche
+    @trip.winch = @winch
     if @trip.save
       redirect_to winch_path(@winch)
     else
@@ -53,14 +52,14 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:check_in, :check_out, :address, :winche_id)
+    params.require(:trip).permit(:check_in, :check_out, :address, :winch_id)
   end
 
   def set_winch
-    @winche = Winch.find(params[:winche_id])
-
+    @winch = Winch.find(params[:winch_id])
+  end
+  
   def set_user
     @user = current_user
-
   end
 end
