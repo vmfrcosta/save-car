@@ -1,6 +1,8 @@
 class TripsController < ApplicationController
+  # skip_before_action :authenticate_user!, only: :new
+  before_action :set_user
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
-  before_action :set_winche, only: [:new, :create]
+  before_action :set_winch, only: [:new, :create]
 
   def index
     @trip = Trip.all
@@ -17,9 +19,9 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    @trip.winche = @winche
+    @trip.winch = @winche
     if @trip.save
-      redirect_to winche_path(@winche)
+      redirect_to winch_path(@winch)
     else
       render :new
     end
@@ -35,11 +37,11 @@ class TripsController < ApplicationController
     @totals = []
     total = 0
     @trips.each do |trip|
-      total = (trip.winche.price * (trip.check_out - trip.check_in))
+      total = (trip.winch.price * (trip.check_out - trip.check_in))
       if total.positive?
         @totals << total
       else
-        @totals << trip.winche.price
+        @totals << trip.winch.price
       end
     end
   end
@@ -54,7 +56,11 @@ class TripsController < ApplicationController
     params.require(:trip).permit(:check_in, :check_out, :address, :winche_id)
   end
 
-  def set_winche
-    @winche = winche.find(params[:winche_id])
+  def set_winch
+    @winche = Winch.find(params[:winche_id])
+
+  def set_user
+    @user = current_user
+
   end
 end
