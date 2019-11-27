@@ -11,5 +11,6 @@ $(document).ready(function() {
     $('.js-example-basic-single').select2();
 });
 
-
-getCarLocation();
+if (document.querySelector('#trips-new')) {
+	getCarLocation();
+}
