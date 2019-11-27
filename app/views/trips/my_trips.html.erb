@@ -1,0 +1,36 @@
+<div class="bg">
+  <div class="container mt-3">
+    <div class="row align-items-center">
+      <div class="col-sm-12 offset-md-3 col-md-6 text-primary">
+        <div class="container">
+          <div class="text-primary">
+            <div class="trips mt-3 d-flex flex-column">
+              <h1 class="mb-3">Minhas Viagens</h1>
+              <% if @trips.empty? %>
+                <h2>Você não possui nenhuma viagem </h2>
+              <% else %>
+              <% @trips.each_with_index do |trip, ind| %>
+                  <%= link_to winche_path(trip.winche), class:"btn px-0" do %>
+                    <div class="card-product rounded">
+                      <% if trip.winche.photos.empty? %>
+                        <img src="http://centerbox.com.br/wp-content/uploads/2018/06/210160-churrasco-guia-de-como-temperar-a-carne-como-um-profissional.jpg"/>
+                      <% else  %>
+                        <%= cl_image_tag trip.winche.photos.first.url %>
+                      <% end %>
+                      <div class="card-product-infos rounded py-4">
+                        <h2><%= trip.winche.name %></h2>
+                        <p><strong>Check in:</strong> <%= trip.check_in.strftime("%d / %B / %y") %></p>
+                        <p><strong>Check out:</strong> <%= trip.check_out.strftime("%d / %B / %y") %></p>
+                        <p><strong>Total price:</strong> R$ <%= @totals[ind] %>,00</p>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
