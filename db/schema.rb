@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_27_193229) do
+ActiveRecord::Schema.define(version: 2019_11_28_171736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 2019_11_27_193229) do
     t.boolean "visible"
     t.index ["user_id"], name: "index_reviews_on_user_id"
     t.index ["winch_id"], name: "index_reviews_on_winch_id"
+  end
+
+  create_table "trip_requests", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.bigint "winch_id"
+    t.boolean "accepted", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_trip_requests_on_trip_id"
+    t.index ["winch_id"], name: "index_trip_requests_on_winch_id"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -105,6 +115,8 @@ ActiveRecord::Schema.define(version: 2019_11_27_193229) do
   add_foreign_key "photos", "users"
   add_foreign_key "reviews", "users"
   add_foreign_key "reviews", "winches"
+  add_foreign_key "trip_requests", "trips"
+  add_foreign_key "trip_requests", "winches"
   add_foreign_key "trips", "cars"
   add_foreign_key "trips", "winches"
   add_foreign_key "winches", "users"

@@ -21,16 +21,13 @@ class TripsController < ApplicationController
     end
     @trip.get_coords!('dest', @trip.dest_address)
     @trip.status = 'searching'
+    @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
+
+    @trip.winch = select_winch(@winches)
     if @trip.save
-      respond_to do |format|
-        format.html { redirect_to restaurant_path(@restaurant) }
-        format.js # <-- will render `app/views/reviews/create.js.erb`
-      end
+      redirect_to winch_path(@winch)
     else
-      respond_to do |format|
-        format.html { render 'trips/new' }
-        format.js
-      end
+      render :new
     end
   end
 
