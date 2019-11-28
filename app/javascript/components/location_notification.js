@@ -4,9 +4,7 @@ const setGoogleMap = (lat, long) => {
 }
 
 const setCarLocation = (position) => {
-	if (position.coords.accuracy >= 100) {
-		noCarLocation()
-    } else {
+
 		const carAddress = document.querySelector('#car-address')
 		const destAddress = document.querySelector('#dest-address')
 		carAddress.classList.remove('required')
@@ -15,7 +13,6 @@ const setCarLocation = (position) => {
 		const long = document.querySelector('#car-long')
 		lat.value = position.coords.latitude
 		long.value = position.coords.longitude
-    }
     setGoogleMap(lat.value, long.value)
 }
 
