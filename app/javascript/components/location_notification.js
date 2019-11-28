@@ -1,14 +1,15 @@
 const setCarLocation = (position) => {
-	console.log(position.coords.latitude)
-	console.log(position.coords.longitude)
-	console.log(position.coords.accuracy)
-	const address = document.querySelector('#address')
-	address.classList.remove('required')
-	address.placeholder = position.coords.accuracy
-	const lat = document.querySelector('#lat')
-	const long = document.querySelector('#long')
-	lat.value = position.coords.latitude
-	long.value = position.coords.longitude
+	if (position.coords.accuracy >= 100) {
+		noCarLocation()
+    } else {
+		const address = document.querySelector('#address')
+		address.classList.remove('required')
+		address.placeholder = 'Endereço (opcional)'
+		const lat = document.querySelector('#lat')
+		const long = document.querySelector('#long')
+		lat.value = position.coords.latitude
+		long.value = position.coords.longitude
+    }
 }
 
 const noCarLocation = () => {
