@@ -15,21 +15,22 @@ class TripsController < ApplicationController
   end
 
   def create
-    @trip = Trip.new(trip_params)
+    @trip = Trip.new(new_trip_params)
     if @trip.car_lat.nil? || @trip.car_long.nil?
       @trip.get_coords!('car', @trip.car_address)
     end
     @trip.get_coords!('dest', @trip.dest_address)
     @trip.status = 'searching'
-    @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
-    
-    
-
-    @trip.winch = select_winch(@winches)
     if @trip.save
-      redirect_to winch_path(@winch)
+      respond_to do |format|
+        format.html { redirect_to restaurant_path(@restaurant) }
+        format.js # <-- will render `app/views/reviews/create.js.erb`
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render 'trips/new' }
+        format.js
+      end
     end
   end
 
@@ -58,7 +59,7 @@ class TripsController < ApplicationController
     @trip = Trip.find(params[:trip_id])
   end
 
-  def trip_params
+  def new_trip_params
     params.require(:trip).permit(:car_lat, :car_long, :car_address, :dest_address, :winch_id)
   end
 
