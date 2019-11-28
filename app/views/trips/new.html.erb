@@ -10,7 +10,7 @@
 <div class="container mt-3" id='trips-new'>
 <!-- 	<div class="map d-flex align-items-end justify-content-center" style="width: 100%; height: 500px; background-color: black"> -->
 		<div class="mb-3" style="width: 800px">
-			<%= simple_form_for @trip, remote: true do |f| %>
+			<%= simple_form_for @trip do |f| %>
 				<%= f.input :car_address, input_html: { class: 'form-control w-100', placeholder: 'Endereço atual', id: 'car-address' }, label: false, required: true  %>
 				<%= f.input :dest_address, input_html: { class: 'form-control w-100', placeholder: 'Endereço do destino', id: 'dest-address' }, label: false, required: true  %>
 				<%= f.input :car_lat, as: :hidden, input_html: { id: 'car-lat' }, label: false %>
