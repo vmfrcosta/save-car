@@ -23,15 +23,14 @@ class TripsController < ApplicationController
       @trip.car_long = geocoded['lon']
     end
     geocoded = Geocoder.search(@trip.dest_address).first.data
-	  @trip.dest_lat = geocoded['lat']
-	  @trip.dest_long = geocoded['lon']
+    @trip.dest_lat = geocoded['lat']
+    @trip.dest_long = geocoded['lon']
     @trip.status = 'searching'
     @trip.user = current_user
     @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
-
     if @trip.save
       @winches.each do |winch|
-        @request = TripRequest.create(winch: winch, trip: @trip)
+        @requests << TripRequest.create(winch: winch, trip: @trip)
       end
         redirect_to @trip
     else
