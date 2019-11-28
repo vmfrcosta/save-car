@@ -4,16 +4,15 @@ const setGoogleMap = (lat, long) => {
 }
 
 const setCarLocation = (position) => {
-
-		const carAddress = document.querySelector('#car-address')
-		const destAddress = document.querySelector('#dest-address')
-		carAddress.classList.remove('required')
-		carAddress.placeholder = 'Endereço atual (opcional)'
-		const lat = document.querySelector('#car-lat')
-		const long = document.querySelector('#car-long')
-		lat.value = position.coords.latitude
-		long.value = position.coords.longitude
-    setGoogleMap(lat.value, long.value)
+	const carAddress = document.querySelector('#car-address')
+	const destAddress = document.querySelector('#dest-address')
+	carAddress.classList.remove('required')
+	carAddress.placeholder = 'Endereço atual (opcional)'
+	const lat = document.querySelector('#car-lat')
+	const long = document.querySelector('#car-long')
+	lat.value = position.coords.latitude
+	long.value = position.coords.longitude
+  setGoogleMap(lat.value, long.value)
 }
 
 
