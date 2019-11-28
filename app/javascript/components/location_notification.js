@@ -2,18 +2,19 @@ const setCarLocation = (position) => {
 	if (position.coords.accuracy >= 100) {
 		noCarLocation()
     } else {
-		const address = document.querySelector('#address')
-		address.classList.remove('required')
-		address.placeholder = 'Endereço (opcional)'
-		const lat = document.querySelector('#lat')
-		const long = document.querySelector('#long')
+		const carAddress = document.querySelector('#car-address')
+		const destAddress = document.querySelector('#dest-address')
+		carAddress.classList.remove('required')
+		carAddress.placeholder = 'Endereço atual (opcional)'
+		const lat = document.querySelector('#car-lat')
+		const long = document.querySelector('#car-long')
 		lat.value = position.coords.latitude
 		long.value = position.coords.longitude
     }
 }
 
 const noCarLocation = () => {
-	alert('Não conseguimos pegar sua localização por GPS, favor colocar o endereço.')
+	alert('Não conseguimos pegar sua localização por GPS, favor colocar o endereço atual.')
 }
 
 const getCarLocation = () => {
@@ -28,31 +29,6 @@ const getCarLocation = () => {
     	})
 	}
 }
-	
-
-
-
-
-	// const locationBtn = document.querySelector('#get-location')
-	// navigator.permissions.query({name:'geolocation'}).then((result) => {
- //    if (result.state == 'granted') {
- //      	console.log('granted');
- //    } else if (result.state == 'prompt') {
- //      	console.log('prompt');
-	// 	if (confirm('Vou pedir a localização')) {
-	// 			console.log('droga')
-	// 		}
-
-	// 	}
-	// })
- //    } else if (result.state == 'denied') {
- //    	console.log('bloked')
- //    }
- //    })
-
-	// 		} else {
-
-	// 		}
 
 export { getCarLocation }
 export { setCarLocation }

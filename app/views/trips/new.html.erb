@@ -1,12 +1,26 @@
 <div class="container mt-3" id='trips-new'>
 	<div class="map d-flex align-items-end justify-content-center" style="width: 100%; height: 500px; background-color: black">
 		<div class="mb-3" style="width: 800px">
-			<%= simple_form_for @trip do |f| %>
-				<%= f.input :car_address, input_html: { class: 'form-control w-100', placeholder: 'Endereço', id: 'address' }, label: false, required: true  %>
-				<%= f.input :car_lat, as: :hidden, input_html: { id: 'lat' }, label: false %>
-				<%= f.input :car_long, as: :hidden, input_html: { id: 'long' }, label: false %>
-				<%= f.button :submit, 'Buscar guincho', class: 'btn btn-success btn-block' %>
+			<%= simple_form_for @trip, remote: true do |f| %>
+				<%= f.input :car_address, input_html: { class: 'form-control w-100', placeholder: 'Endereço atual', id: 'car-address' }, label: false, required: true  %>
+				<%= f.input :dest_address, input_html: { class: 'form-control w-100', placeholder: 'Endereço do destino', id: 'dest-address' }, label: false, required: true  %>
+				<%= f.input :car_lat, as: :hidden, input_html: { id: 'car-lat' }, label: false %>
+				<%= f.input :car_long, as: :hidden, input_html: { id: 'car-long' }, label: false %>
+				<%= f.button :submit, 'Buscar guincho', class: 'btn btn-success btn-block', id: 'search-btn' %>
 			<% end %>
+		</div>
+	</div>
+</div>
+
+<div class="container mt-3 d-flex flex-column justify-content-around align-items-center" id='searching-winches' hidden>	
+	<div class="map d-flex align-items-end justify-content-center w-75" style="height: 380px; background-color: black">
+	</div>
+	<div class="trip-infos mt-3 w-75">
+		<div class="card-trip d-flex flex-column align-items-center">
+			<h3 id='winch-user-name'>Searching</h3>
+			<p id="winch-plate" hidden>Plate</p>
+			<p id="distance" hidden>Total distance</p>
+			<p id="price" hidden>Total price</p>
 		</div>
 	</div>
 </div>

@@ -2,7 +2,6 @@ class TripsController < ApplicationController
   # skip_before_action :authenticate_user!, only: :new
   before_action :set_user
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
-  before_action :set_winch, only: [:create]
 
   def index
     @trip = Trip.all
@@ -17,8 +16,14 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
-    @trip.user = current_user
-    @trip.winch = @winch
+    if @trip.car_lat.nil? || @trip.car_long.nil?
+      @trip.get_coords!('car', @trip.car_address)
+    end
+    @trip.get_coords!('dest', @trip.dest_address)
+    @trip.status = 'searching'
+    @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
+    
+    @trip.winch = select_winch(@winches)
     if @trip.save
       redirect_to winch_path(@winch)
     else
@@ -52,7 +57,7 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:check_in, :check_out, :address, :winch_id)
+    params.require(:trip).permit(:car_lat, :car_long, :car_address, :dest_address, :winch_id)
   end
 
   def set_winch
@@ -61,5 +66,16 @@ class TripsController < ApplicationController
   
   def set_user
     @user = current_user
+  end
+
+  def get_coords!
+
+  end
+
+  def select_winch
+    respond_to do |format|
+      format.html { redirect_to restaurant_path(@restaurant) }
+      format.js # <-- will render `app/views/reviews/create.js.erb`
+    end
   end
 end
