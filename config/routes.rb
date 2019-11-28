@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   resources :winches, except: [:destroy]
   resources :cars
   resources :trips, only: [:index, :show, :new, :create]
-
+  get 'requests/:id', to: 'trip_requests#show', as: 'request_path'
 end
