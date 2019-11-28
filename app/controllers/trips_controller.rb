@@ -8,6 +8,7 @@ class TripsController < ApplicationController
   end
 
   def show
+    @requests = @trip.trip_requests
   end
 
   def new
@@ -15,19 +16,26 @@ class TripsController < ApplicationController
   end
 
   def create
-    @trip = Trip.new(trip_params)
+    @trip = Trip.new(new_trip_params)
     if @trip.car_lat.nil? || @trip.car_long.nil?
-      @trip.get_coords!('car', @trip.car_address)
+      geocoded = Geocoder.search(@trip.car_address).first.data
+      @trip.car_lat = geocoded['lat']
+      @trip.car_long = geocoded['lon']
     end
-    @trip.get_coords!('dest', @trip.dest_address)
+    geocoded = Geocoder.search(@trip.dest_address).first.data
+	  @trip.dest_lat = geocoded['lat']
+	  @trip.dest_long = geocoded['lon']
     @trip.status = 'searching'
+    @trip.user = current_user
     @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
-    
-    @trip.winch = select_winch(@winches)
+
     if @trip.save
-      redirect_to winch_path(@winch)
+      @winches.each do |winch|
+        @request = TripRequest.create(winch: winch, trip: @trip)
+      end
+        redirect_to @trip
     else
-      render :new
+      raise
     end
   end
 
@@ -53,10 +61,10 @@ class TripsController < ApplicationController
   private
 
   def set_trip
-    @trip = Trip.find(params[:trip_id])
+    @trip = Trip.find(params[:id])
   end
 
-  def trip_params
+  def new_trip_params
     params.require(:trip).permit(:car_lat, :car_long, :car_address, :dest_address, :winch_id)
   end
 
@@ -66,10 +74,6 @@ class TripsController < ApplicationController
   
   def set_user
     @user = current_user
-  end
-
-  def get_coords!
-
   end
 
   def select_winch
