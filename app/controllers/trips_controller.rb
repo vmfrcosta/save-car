@@ -23,6 +23,8 @@ class TripsController < ApplicationController
     @trip.status = 'searching'
     @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
     
+    
+
     @trip.winch = select_winch(@winches)
     if @trip.save
       redirect_to winch_path(@winch)
