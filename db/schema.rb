@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_28_165950) do
 ActiveRecord::Schema.define(version: 2019_11_28_180512) do
 
   # These are extensions that must be enabled in order to support this database
@@ -91,9 +90,6 @@ ActiveRecord::Schema.define(version: 2019_11_28_180512) do
     t.datetime "updated_at", null: false
     t.string "car_address"
     t.string "dest_address"
-    t.string "geo_address"
-    t.float "latitude"
-    t.float "longitude"
     t.bigint "user_id"
     t.index ["car_id"], name: "index_trips_on_car_id"
     t.index ["user_id"], name: "index_trips_on_user_id"

@@ -17,7 +17,7 @@
                           input_html: { class: "rounded-pill pl-4 border-0 select2 " } %>
 
               <%= f.input :plate, label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
-                          input_html: { class: "rounded-pill pl-4 border-0" } %>
+                          input_html: { class: "rounded-pill pl-4 border-0", onkeyup:"this.value = this.value.toUpperCase();" } %>
 
               <%= f.button :submit, class: "btn-secondary btn-block rounded-pill"  %>
             <% end %>

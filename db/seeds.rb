@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-require 'csv'
+# require 'csv'
 # filepath = 'db/marcas.csv'
 
 # marcas = {}

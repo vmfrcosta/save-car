@@ -48,6 +48,7 @@ class WinchesController < ApplicationController
     params.require(:winch).permit(
       :brand,
       :plate,
+      :winch_type,
       :model
     )
   end
