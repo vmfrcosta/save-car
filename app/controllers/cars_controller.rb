@@ -1,6 +1,6 @@
 class CarsController < ApplicationController
   before_action :set_car, only: %i[show edit update destroy]
-
+  before_action :set_car, only: %i[show edit update destroy]
   def index
     @cars = current_user.cars
   end
@@ -56,5 +56,11 @@ class CarsController < ApplicationController
 
   def set_car
     @car = Car.find(params[:id])
+  end
+
+  def check_admin
+    unless currente_user.admin
+      redirect_to root_path
+    end
   end
 end
