@@ -16,7 +16,7 @@ class TripsController < ApplicationController
   end
 
   def create
-    @trip = Trip.new(new_trip_params)
+    @trip = Trip.new(trip_params)
     if @trip.car_lat.nil? || @trip.car_long.nil?
       geocoded = Geocoder.search(@trip.car_address).first.data
       @trip.car_lat = geocoded['lat']
@@ -35,6 +35,16 @@ class TripsController < ApplicationController
         redirect_to @trip
     else
       raise
+    end
+  end
+
+  def update
+    if @trip.status == 'searching'
+      @trip.update(trip_params)
+      @trip.status = 'on the way'
+      @trip.save
+    else
+      redirect_to too_late_path
     end
   end
 
@@ -63,8 +73,8 @@ class TripsController < ApplicationController
     @trip = Trip.find(params[:id])
   end
 
-  def new_trip_params
-    params.require(:trip).permit(:car_lat, :car_long, :car_address, :dest_address, :winch_id)
+  def trip_params
+    params.require(:trip).permit(:win_init_long, :win_init_lat, :car_lat, :car_long, :car_address, :dest_address, :winch_id)
   end
 
   def set_winch
@@ -73,12 +83,5 @@ class TripsController < ApplicationController
   
   def set_user
     @user = current_user
-  end
-
-  def select_winch
-    respond_to do |format|
-      format.html { redirect_to restaurant_path(@restaurant) }
-      format.js # <-- will render `app/views/reviews/create.js.erb`
-    end
   end
 end
