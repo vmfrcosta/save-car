@@ -12,5 +12,8 @@ Rails.application.routes.draw do
   namespace :winch do
     resources :winches
   end
+  namespace :user do
+    resources :cars
+  end
   get 'requests/:id', to: 'trip_requests#show', as: 'request_path'
 end
