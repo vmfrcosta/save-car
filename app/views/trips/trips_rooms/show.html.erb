@@ -1,0 +1,37 @@
+<div
+  id="map"
+  style="width: 100%;
+  height: 600px;"
+  data-markers="<%= @markers.to_json %>"
+></div>
+
+<% @requests.each do |request| %>
+  <%= request %>
+<% end %>
+
+<% content_for :after_js do %>
+  <script>
+    App['trip_<%= @trip.id %>'] = App.cable.subscriptions.create(
+      { channel: 'TripsChannel', trip_id: <%= @trip.id %> },
+      { received: (data) => console.log(data) }
+    )
+  </script>
+<% end %>
+
+<% content_for :after_js do %>
+  <script>
+    scrollLastMessageIntoView();
+    App['chat_room_<%= @chat_room.id %>'] = App.cable.subscriptions.create(
+      { channel: 'ChatRoomsChannel', chat_room_id: <%= @chat_room.id %> },
+      {
+        received: (data) => {
+          if (data.current_user_id !== <%= current_user.id %>) {
+            const messagesContainer = document.querySelector('.messages');
+            messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
+            scrollLastMessageIntoView();
+          }
+        }
+      }
+    )
+  </script>
+<% end %>

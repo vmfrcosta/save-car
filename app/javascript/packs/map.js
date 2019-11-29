@@ -13,6 +13,14 @@ if (mapElement) { // don't try to build a map if there's no div#map to inject in
       map.setZoom(14);
     } else {
       map.fitLatLngBounds(markers);
+      map.drawRoute({
+        origin: [markers[0].lat, markers[0].lng],
+        destination: [markers[1].lat, markers[1].lng],
+        travelMode: 'driving',
+        strokeColor: '#131540',
+        strokeOpacity: 0.6,
+        strokeWeight: 6
+      });      
     }
   }, 5000)
 

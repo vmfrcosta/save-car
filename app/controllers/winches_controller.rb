@@ -6,7 +6,7 @@ class WinchesController < ApplicationController
 
   def show
   end
-
+# nois
   def new
     @winch = Winch.new
     guinchos = Guincho.all
@@ -48,6 +48,7 @@ class WinchesController < ApplicationController
     params.require(:winch).permit(
       :brand,
       :plate,
+      :winch_type,
       :model
     )
   end

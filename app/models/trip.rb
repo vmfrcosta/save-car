@@ -19,5 +19,15 @@ class Trip < ApplicationRecord
   # validates :car, presence: true
   # validates :winch, presence: true
 
+  def broadcast_message
+    ActionCable.server.broadcast("trip_#{trip.id}", {
+      message_partial: ApplicationController.renderer.render(
+        partial: "trips/show",
+        locals: { message: self, user_is_messages_author: false }
+      ),
+      current_user_id: user.id
+    })
+  end
+
   geocoded_by :geo_address
 end
