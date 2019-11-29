@@ -13,4 +13,5 @@ Rails.application.routes.draw do
     resources :winches
   end
   get 'requests/:id', to: 'trip_requests#show', as: 'request_path'
+  get 'trip/trips_room/:id', to: 'trips#show', as: 'trip_room'
 end

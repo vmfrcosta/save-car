@@ -12,7 +12,7 @@ const setCarLocation = (position) => {
 	const long = document.querySelector('#car-long')
 	lat.value = position.coords.latitude
 	long.value = position.coords.longitude
-    setGoogleMap(lat.value, long.value)
+  setGoogleMap(lat.value, long.value)
 }
 
 
