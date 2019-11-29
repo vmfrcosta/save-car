@@ -28,6 +28,7 @@ class TripsController < ApplicationController
     @trip.status = 'searching'
     @trip.user = current_user
     @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
+    @requests = []
     if @trip.save
       @winches.each do |winch|
         @requests << TripRequest.create(winch: winch, trip: @trip)
