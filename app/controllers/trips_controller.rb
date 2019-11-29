@@ -39,7 +39,7 @@ class TripsController < ApplicationController
       @winches.each do |winch|
         @requests << TripRequest.create(winch: winch, trip: @trip)
       end
-        redirect_to @trip
+        redirect_to trip_room_path(@trip)
     else
       raise
     end
