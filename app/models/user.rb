@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :winches
   has_many :reviews
   has_many :cars
+  has_many :trips
   mount_uploader :url, PhotoUploader
 
   # validates :first_name, presence: true

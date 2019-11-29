@@ -8,7 +8,12 @@ class TripsController < ApplicationController
   end
 
   def show
+    # action cable vai trazer o guincho que aceitar a corrida
     @requests = @trip.trip_requests
+    @markers = [
+      {lat: @trip.car_lat, lng: @trip.car_long},
+      {lat: @trip.dest_lat, lng: @trip.dest_long}
+    ]
   end
 
   def new
@@ -27,7 +32,9 @@ class TripsController < ApplicationController
     @trip.dest_long = geocoded['lon']
     @trip.status = 'searching'
     @trip.user = current_user
-    @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
+    # @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
+    @winches = Winch.all
+    @requests = []
     if @trip.save
       @winches.each do |winch|
         @requests << TripRequest.create(winch: winch, trip: @trip)
