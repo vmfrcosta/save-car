@@ -44,6 +44,7 @@ class TripsController < ApplicationController
       @trip.update(trip_params)
       @trip.status = 'on the way'
       @trip.save
+      
     else
       redirect_to too_late_path
     end
