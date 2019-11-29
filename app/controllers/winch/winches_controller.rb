@@ -17,7 +17,6 @@ class Winch::WinchesController < ApplicationController
     if @winch.save
       redirect_to winches_path
     else
-      raise
       render :new
     end
   end
