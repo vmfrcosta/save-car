@@ -1,6 +1,5 @@
 <h1>Pages#home</h1>
-
-<p><%= link_to "Criar Guincho", new_winch_winch_path(@winch), class: "btn btn-primary" %></p>
+<p>Winches Index</p>
 
 <div class="bg">
   <div class="container">
@@ -20,13 +19,12 @@
                 <h2 class="card-trip-pricing text-secondary mt-2"><%= winch.plate %></h2>
               </div>
               <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered"/>
-
-        <%= link_to "Editar |", edit_winch_winch_path(winch) %>
-        <%= link_to "Deletar", winch_winch_path(winch), method: :delete, :data => {:confirm => "You Sure?"} %>
             </div>
           </div>
+
         <% end %>
       </div>
     </div>
+      <%= link_to "Criar Guincho", new_winch_winch_path(@winch) %>
   </div>
 </div>
