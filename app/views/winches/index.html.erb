@@ -5,19 +5,24 @@
 <div class="bg">
   <div class="container">
     <div class="text-primary">
+
       <div class="cards">
-
         <% @winches.each do |winch| %>
-
-          <div class="card-trip m-2">
-            <%= link_to winch_path(winch), class:"btn" do %>
+          <% if winch.visible %>
+            <div class="card-trip m-2">
+              <%= link_to winch_path(winch), class:"a border-0" do %>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj85G1Zl_5aj8CG-FYz79H0nsLghX4IkVcJJ5y80yyTkpn6cXk&s"/>
             <% end %>
             <div class="card-trip-infos">
               <div>
-                <h4 class="card-title block-with-text mb-2"><%= winch.brand %> </h4>
-                <p class="card-text mr-2"><%= winch.winch_type %> </p>
-                <h2 class="card-trip-pricing text-secondary mt-2"><%= winch.plate %></h2>
+                <h4 class="card-title block-with-text mb-2"><%= winch.model %> </h4>
+                <p class="card-text mr-2"><%= winch.brand %> </p>
+                <div class="d-flex justify-content-between" style="width: 100%">
+                  <h2 class="card-trip-pricing text-secondary mt-2"><%= winch.plate %></h2>
+                  <%= link_to winch_path(winch), method: 'delete', :data => {:confirm => "Tem Certeza?"} do %>
+                    <i class="icon-trash"></i>
+                  <% end %>
+                </div>
               </div>
               <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered"/>
 
@@ -26,7 +31,9 @@
             </div>
           </div>
         <% end %>
+      <% end %>
       </div>
+      <%= link_to "Criar Guincho", new_winch_path, class:"btn btn-primary" %>
     </div>
   </div>
 </div>

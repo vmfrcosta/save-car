@@ -22,6 +22,9 @@ class CarsController < ApplicationController
 
   def new
     @car = Car.new
+    autos = Auto.all
+    @brands = autos.map(&:brand).uniq
+    @models = autos.map(&:model).uniq
   end
 
   def create

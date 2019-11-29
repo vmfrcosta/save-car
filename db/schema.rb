@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 2019_11_28_165950) do
 ActiveRecord::Schema.define(version: 2019_11_28_180512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "autos", force: :cascade do |t|
+    t.string "model"
+    t.string "brand"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "cars", force: :cascade do |t|
     t.bigint "user_id"
@@ -25,6 +33,13 @@ ActiveRecord::Schema.define(version: 2019_11_28_180512) do
     t.string "car_type"
     t.boolean "visible", default: true
     t.index ["user_id"], name: "index_cars_on_user_id"
+  end
+
+  create_table "guinchos", force: :cascade do |t|
+    t.string "brand"
+    t.string "model"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "photos", force: :cascade do |t|
@@ -113,6 +128,8 @@ ActiveRecord::Schema.define(version: 2019_11_28_180512) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "winch_type"
+    t.boolean "visible", default: true
+    t.string "model"
     t.index ["user_id"], name: "index_winches_on_user_id"
   end
 
