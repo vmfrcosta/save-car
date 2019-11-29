@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   get 'guinchos/index'
   get 'autos/index'
   devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :winches
   resources :cars
   resources :trips, only: [:index, :show, :new, :create]
