@@ -1,5 +1,5 @@
 class WinchesController < ApplicationController
-  before_action :set_winch, only: [:show, :edit]
+  before_action :set_winch, only: %i[show edit update destroy]
   def index
     @winches = current_user.winches
   end
@@ -9,6 +9,9 @@ class WinchesController < ApplicationController
 
   def new
     @winch = Winch.new
+    guinchos = Guincho.all
+    @brands = guinchos.map(&:brand).uniq
+    @models = guinchos.map(&:model).uniq
   end
 
   def create
@@ -24,23 +27,32 @@ class WinchesController < ApplicationController
   def edit
   end
 
-  # def update
-  #   if @winch.update(winch_params)
-  #     redirect_to winch_path
+  def update
+    @winch.update(winch_params)
+    if @winch.update(winch_params)
+      redirect_to winch_path
+    else
+      render :edit
+    end
+  end
 
-  # end
+  def destroy
+    @winch.visible = false
+    @winch.save
+    redirect_to winches_path
+  end
 
   private
 
   def winch_params
     params.require(:winch).permit(
       :brand,
-      :winch_type,
-      :plate
+      :plate,
+      :model
     )
   end
 
-  # def set_winch
-  #   @winch = current_user.winches.find(params[:id])
-  # end
+  def set_winch
+    @winch = Winch.find(params[:id])
+  end
 end

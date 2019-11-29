@@ -4,7 +4,7 @@
 <div class="bg">
   <div class="container">
     <div class="text-primary">
-      
+
       <div class="cards">
         <% @cars.each do |car| %>
           <% if car.visible %>
@@ -16,7 +16,7 @@
                 <div>
                   <h4 class="card-title block-with-text mb-2"><%= car.model %> </h4>
                   <p class="card-text mr-2"><%= car.brand %> </p>
-                  <div class="d-flex justify-content-between" style="width: 100%">                  
+                  <div class="d-flex justify-content-between" style="width: 100%">
                     <h2 class="card-trip-pricing text-secondary"><%= car.plate %></h2>
                     <%= link_to car_path(car), method: 'delete', :data => {:confirm => "You Sure?"} do %>
                       <i class="icon-trash"></i>
@@ -26,8 +26,8 @@
                 <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered"/>
               </div>
             </div>
-          <% end %>        
-        <% end %>        
+          <% end %>
+        <% end %>
       </div>
 
       <%= link_to 'Novo Carro', new_car_path, class:"btn btn-primary" %>
