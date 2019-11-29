@@ -6,7 +6,7 @@
           <div class="text-primary">
             <div class="trips mt-3 d-flex flex-column">
               <h1 class="mb-3">Minhas Viagens</h1>
-              <% if @trips.empty? %>
+              <% if @trips.nil? %>
                 <h2>Você não possui nenhuma viagem </h2>
               <% else %>
               <% @trips.each_with_index do |trip, ind| %>

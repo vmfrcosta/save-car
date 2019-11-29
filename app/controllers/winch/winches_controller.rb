@@ -1,7 +1,7 @@
-class WinchesController < ApplicationController
-  before_action :set_winch, only: [:show, :edit]
+class Winch::WinchesController < ApplicationController
+  before_action :set_winch, only: [:show, :edit, :update, :destroy]
   def index
-    @winches = Winch.all
+    @winches = current_user.winches
   end
 
   def show
@@ -19,6 +19,22 @@ class WinchesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
+  end
+
+  def update
+    if @winch.update(winch_params)
+      redirect_to winch_winch_path(@winch)
+    else
+      render :new
+    end
+  end
+
+  def destroy
+    @winch.destroy
+    redirect_to winch_winches_path
   end
 
   private
