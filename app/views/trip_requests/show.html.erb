@@ -1,6 +1,6 @@
 <div class="container">
 	<h1>Solicitação de <%= "#{@request.trip.user.first_name} #{@request.trip.user.last_name}" %></h1>
-	<div class="map w-100" style="background-color: black; height: 50vh"></div>
+	<div class="map w-100" style="background-color: black; height: 55vh"></div>
 	<div class="car-info d-flex justify-content-around">
 		<p>car owner name</p>
 		<p>car brand and model</p>
@@ -11,8 +11,8 @@
 		<p>price</p>
 	</div>
 	<%= simple_form_for @trip do |f| %>
-		<%= f.input :win_init_lat, as: :hidden %>
-		<%= f.input :win_init_long, as: :hidden %>
+		<%= f.input :win_init_lat, as: :hidden, input_html: { value: @request.winch.win_lat } %>
+		<%= f.input :win_init_long, as: :hidden, input_html: { value: @request.winch.win_long } %>
 		<%= f.button :submit, 'Aceitar solicitação', class: 'btn btn-success btn-block' %>
 	<% end %>
 </div>

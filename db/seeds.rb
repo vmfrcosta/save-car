@@ -6,103 +6,37 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'csv'
+# filepath = 'db/marcas.csv'
 
-winch_params = [
-   "Acura",
-   "Alfa Romeo",
-   "Asia",
-   "Aston Martin",
-   "Audi",
-   "Bentley",
-   "BMW",
-   "Buggy BRM",
-   "Buick",
-   "Cadillac",
-   "Carver Concept",
-   "Chamonix",
-   "Changan (Chana)",
-   "Chery"
-   "Chevrolet",
-   "Chrysler",
-   "Citroën",
-   "CN Auto",
-   "Crosslander",
-   "Daewoo",
-   "Daihatsu",
-   "Dodge",
-   "DS",
-   "Effa",
-   "Engesa",
-   "Envemo",
-   "Fargo",
-   "Ferrari",
-   "Fiat",
-   "Ford",
-   "Fyber Buggy",
-   "Geely",
-   "GMC",
-   "Great Wall",
-   "Gurgel",
-   "Hafei Towner",
-   "Haima",
-   "HITECH ELECTRIC",
-   "Honda",
-   "Hummer",
-   "Hyundai",
-   "Infiniti",
-   "Isuzu",
-   "Iveco",
-   "Jac",
-   "Jaguar",
-   "Jeep",
-   "Jin Bei",
-   "Jonway",
-   "JPX",
-   "Kia",
-   "Lada",
-   "Lamborghini",
-   "Land Rover",
-   "Landwind",
-   "Lexus",
-   "Lifan",
-   "Lincoln",
-   "Lobini",
-   "Lotus",
-   "Mahindra",
-   "Maserati",
-   "Matra",
-   "Mazda",
-   "McLaren",
-   "Mercedes-Benz",
-   "MG",
-   "MG Spaic",
-   "MINI",
-   "Mitsubishi",
-   "Nissan",
-   "Oldsmobile",
-   "Pagani",
-   "Peugeot",
-   "Plymouth",
-   "Pontiac",
-   "Porsche",
-   "Rely",
-   "Renault",
-   "Rolls-Royce",
-   "Saab",
-   "Saturn",
-   "Seat",
-   "Shineray",
-   "Shuanghuan",
-   "Smart",
-   "Spyker",
-   "SsangYong",
-   "Subaru",
-   "Sunbeam",
-   "Suzuki",
-   "Tac",
-   "Tesla",
-   "Toyota",
-   "Troller",
-   "Volkswagen",
-   "Volvo",
-  ]
+# marcas = {}
+
+# CSV.foreach(filepath, headers:true) do |row|
+#   marcas[row[1]] = row[2]
+# end
+
+# puts 'marcas'
+# filepath2 = 'db/modelos.csv'
+
+# CSV.foreach(filepath2, headers:true) do |row|
+#   auto = Auto.new()
+#   row = row.to_s.split(";")
+#   auto.model = row[3].gsub('""', '')
+#   auto.brand = marcas[row[1].gsub(/\W/,'')]
+#   auto.save
+#   puts "#{auto.model} saved on db"
+# end
+
+# filepath = 'db/guinchos.csv'
+
+# marcas = {}
+
+# CSV.foreach(filepath) do |row|
+#   guincho = Guincho.new()
+#   guincho.brand = row[0]
+#   guincho.model = row[1]
+#   guincho.save
+#   puts "#{guincho.model} saved on DB"
+# end
+
+
