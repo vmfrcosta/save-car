@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'trips#new'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :winches, except: [:destroy]
+
+  resources :winches, only: [:index, :show, :create]
   resources :cars
   resources :trips, only: [:index, :show, :new, :create]
 
-end
+  namespace :winch do
+    resources :winches
+  end
+  end
