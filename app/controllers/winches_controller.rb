@@ -6,7 +6,7 @@ class WinchesController < ApplicationController
 
   def show
   end
-# nois
+
   def new
     @winch = Winch.new
     guinchos = Guincho.all

@@ -15,7 +15,7 @@
             <% end %>
             <div class="card-trip-infos">
               <div>
-                <h4 class="card-title block-with-text mb-2"><%= winch.model %> </h4>
+                <h4 class="card-title block-with-text mb-2"><%= winch.winch_type %> </h4>
                 <p class="card-text mr-2"><%= winch.brand %> </p>
                 <div class="d-flex justify-content-between" style="width: 100%">
                   <h2 class="card-trip-pricing text-secondary mt-2"><%= winch.plate %></h2>
@@ -33,7 +33,6 @@
         <% end %>
       <% end %>
       </div>
-      <%= link_to "Criar Guincho", new_winch_path, class:"btn btn-primary" %>
     </div>
   </div>
 </div>
