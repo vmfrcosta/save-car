@@ -1,35 +1,64 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <%= link_to "#", class: "navbar-brand" do %>
+  <div class="container">
+  <%= link_to winches_path, class: "navbar-brand" do %>
     <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
     <% end %>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
-        <li class="nav-item active">
-          <%= link_to "Home", "#", class: "nav-link" %>
+
+        <% if current_user.winch %>
+          <%= link_to "Home", winches_path, class: "nav-link text-secondary mr-2" %>
         </li>
-        <li class="nav-item">
-          <%= link_to "Messages", "#", class: "nav-link" %>
+          <%= link_to "Novo Guincho", new_winch_winch_path, class: "nav-link text-secondary mr-2" %>
+        <li class="nav-item active">
         </li>
         <li class="nav-item dropdown">
-          <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% if current_user.photo.present? %>
+            <%= cl_image_tag current_user.photo, class:"avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false   %>
+          <% else %>
+            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% end %>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <%= link_to "Action", "#", class: "dropdown-item" %>
-            <%= link_to "Another action", "#", class: "dropdown-item" %>
+            <%= link_to "Meus Guinchos", winch_winches_path, class: "dropdown-item" unless current_user.winches.empty?%>
+            <%= link_to "Minhas Viagens", trips_path, class: "dropdown-item" %>
+            <%= link_to "Editar meu perfil", edit_user_registration_path(current_user), class: "dropdown-item" %>
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         </li>
+
+        <% else %>
+
+          <%= link_to "Home", cars_path, class: "nav-link text-secondary mr-2" %>
+        </li>
+          <%= link_to "Novo Guincho", new_car_path, class: "nav-link text-secondary mr-2" %>
+        <li class="nav-item active">
+        </li>
+        <li class="nav-item dropdown">
+          <% if current_user.photo.present? %>
+            <%= cl_image_tag current_user.photo, class:"avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false   %>
+          <% else %>
+            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% end %>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <%= link_to "Meus Guinchos", cars_path, class: "dropdown-item" unless current_user.cars.empty?%>
+            <%= link_to "Minhas Viagens", trips_path, class: "dropdown-item" %>
+            <%= link_to "Editar meu perfil", edit_user_registration_path(current_user), class: "dropdown-item" %>
+            <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
+      <% end %>
       <% else %>
         <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          <%= link_to "Login", new_user_session_path, class: "text-secondary nav-link" %>
         </li>
       <% end %>
     </ul>
+  </div>
   </div>
 </div>
