@@ -50,7 +50,7 @@ class TripsController < ApplicationController
       @trip.update(trip_params)
       @trip.status = 'on the way'
       @trip.save
-      
+      redirect_to trip_room_path(@trip)
     else
       redirect_to too_late_path
     end
