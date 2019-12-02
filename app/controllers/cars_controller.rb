@@ -9,6 +9,9 @@ class CarsController < ApplicationController
   end
 
   def edit
+    autos = Auto.all
+    @brands = autos.map(&:brand).uniq
+    @models = autos.map(&:model).uniq
   end
 
   def update
