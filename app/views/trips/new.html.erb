@@ -15,6 +15,7 @@
 				<% if current_user.cars.length == 1 %>
 					<%= f.input :car, as: :hidden, input_html: { value: current_user.cars.first }, label: false %>
 				<% else %>
+				<!-- ha -->
 					<%= f.select :car, collection: current_user.cars %>
 				<% end %>
 				<%= f.button :submit, 'Buscar guincho', class: 'btn btn-success btn-block', id: 'search-btn' %>
