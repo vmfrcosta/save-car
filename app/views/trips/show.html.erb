@@ -5,6 +5,48 @@
   data-markers="<%= @markers.to_json %>"
 ></div>
 
+<div class="container">
+  <h1>Action cable, funcionou fdp?</h1>
+
+  <div>
+    <input type="checkbox" id="work" name="work"
+           checked>
+    <label for="work">Funcionei</label>
+  </div>
+
+  <div>
+    <input type="checkbox" id="dntwork" name="dntwork">
+    <label for="dntwork">Não Funcionei</label>
+  </div>
+</div>
+
 <% @requests.each do |request| %>
-	<%= request %>
+  <%= request %>
+<% end %>
+
+<% content_for :after_js do %>
+  <script>
+    App['trip_<%= @trip.id %>'] = App.cable.subscriptions.create(
+      { channel: 'TripsChannel', trip_id: <%= @trip.id %> },
+      { received: (data) => {
+          console.log(data);
+          // take the map (getElementById)
+          // take the winch's lat and lon (inside data)
+          // remove the previous winch mark from the map
+          // create a new marker in the map with the new lat and lon (map.addMarkers)
+          // get the origin marker (map.dataset.markers[0])
+          // draw a route from the winch marker to the origin marker (drawRoute)
+        } 
+      }
+    );
+
+    <% unless current_user == @trip.user %>
+      // setInterval(()=>{ 
+      //   lat = ??;
+      //   long = ??;
+      //   fetch('<%#= trip_win_loc_path(@trip.id, lat: ??, long: ??) %>');
+      //   console.log("info sent");
+      // }, 10000);
+    <% end %>
+  </script>
 <% end %>

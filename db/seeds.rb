@@ -1,3 +1,6 @@
+.model} saved on DB"
+end
+=======
 # require 'csv'
 # filepath = 'db/marcas.csv'
 
@@ -30,5 +33,4 @@
 #   guincho.save
 #   puts "#{guincho.model} saved on DB"
 # end
-
 
