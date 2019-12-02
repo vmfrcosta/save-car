@@ -23,4 +23,4 @@ CSV.foreach(filepath) do |row|
   guincho.save
   puts "#{guincho.model} saved on DB"
 end
-
+#fixed
