@@ -11,6 +11,7 @@
 		<p>price</p>
 	</div>
 	<%= simple_form_for @trip do |f| %>
+		<%= f.input :winch_id, as: :hidden, input_html: { value: @request.winch.id } %>
 		<%= f.input :win_init_lat, as: :hidden, input_html: { value: @request.winch.win_lat } %>
 		<%= f.input :win_init_long, as: :hidden, input_html: { value: @request.winch.win_long } %>
 		<%= f.button :submit, 'Aceitar solicitação', class: 'btn btn-success btn-block' %>
