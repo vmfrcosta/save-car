@@ -40,13 +40,13 @@
       }
     );
 
-    // <% unless current_user == @trip.user %>
-    //   setInterval(()=>{ 
-    //     lat = ??;
-    //     long = ??;
-    //     fetch('<%= trip_win_loc_path(@trip.id, lat: ??, long: ??) %>');
-    //     console.log("info sent");
-    //   }, 10000);
-    // <% end %>
+    <% unless current_user == @trip.user %>
+      setInterval(()=>{ 
+        // lat = ??;
+        // long = ??;
+        fetch('<%= trip_win_loc_path(@trip.id) %>');
+        console.log(`{lat: ${<%= @trip.winch.win_lat %>}, lng: ${<%= @trip.winch.win_long %>} }`);
+      }, 10000);
+    <% end %>
   </script>
 <% end %>

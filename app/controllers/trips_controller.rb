@@ -49,7 +49,7 @@ class TripsController < ApplicationController
     if @trip.status == 'searching'
       @trip.update(trip_params)
       @trip.status = 'on the way'
-      @trip.winch = Winch.find(params[:winch_id])
+      @trip.winch = Winch.find(params[:trip][:winch_id])
       @trip.save
       @trip.broadcast_message(params[:win_init_lat], params[:win_init_long])
       redirect_to trip_room_path(@trip)
