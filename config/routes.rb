@@ -3,12 +3,13 @@ Rails.application.routes.draw do
   get 'autos/index'
   get 'requests/:id', to: 'trip_requests#show', as: 'request_path'
   get 'trip/trips_room/:id', to: 'trips#show', as: 'trip_room'
+  get 'trip/trips_room/:id/update_location', to: 'trips#update_win_location', as: 'trip_win_loc'
 
   devise_for :users
 
   resources :winches
   resources :cars
-  resources :trips, only: [:index, :show, :new, :create]
+  resources :trips, only: [:index, :show, :new, :create, :update]
   resources :autos, only: [:index] , defaults: {format: :json}
   resources :guinchos, only: [:index] , defaults: {format: :json}
 
@@ -18,4 +19,6 @@ Rails.application.routes.draw do
     resources :winches
     resources :cars
   end
+
+  mount ActionCable.server => '/cable'
 end
