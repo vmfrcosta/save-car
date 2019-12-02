@@ -7,16 +7,15 @@
           <div>
             <%= simple_form_for @winch, url: winch_winches_path, method: 'post' do |f| %>
               <%= f.error_notification %>
-              <%= f.input :brand, label: "Marca", label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
-                          input_html: { class: "rounded-pill pl-4 border-0", id: 'brand-select' } %>
-
-              <%= f.input :winch_type, label: "Tipo de Guincho", label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
-                          input_html: { class: "rounded-pill pl-4 border-0" } %>
-
-              <%= f.input :plate, label: "Placa", label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
-                          input_html: { class: "rounded-pill pl-4 border-0", onkeyup:"this.value = this.value.toUpperCase();" } %>
-
-              <%= f.button :submit, class: "btn-secondary btn-block rounded-pill", value: "Criar Guincho" %>
+              <%= f.input :brand, collection: @brands, label_html: { class: 'font-weight-bolder ml-4 text-black-50 '},
+                          input_html: { class: "rounded-pill pl-4 border-0 select2", id: 'brand-select' } %>
+              <%= f.input :model, collection: @models, label_html: { class: 'font-weight-bolder ml-4 text-black-50 '},
+                          input_html: { class: "rounded-pill pl-4 border-0 select2" } %>
+              <%= f.input :winch_type, collection: ["Carro", "Caminhao","Moto"], label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
+                          input_html: { class: "rounded-pill pl-4 border-0 select2 " } %>
+              <%= f.input :plate, label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
+                          input_html: { class: "rounded-pill pl-4 border-0 ", onkeyup:"this.value = this.value.toUpperCase();" } %>
+              <%= f.button :submit, class: "btn-secondary btn-block rounded-pill"  %>
             <% end %>
           </div>
       </div>
