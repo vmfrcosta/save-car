@@ -5,6 +5,21 @@
   data-markers="<%= @markers.to_json %>"
 ></div>
 
+<div class="container">
+  <h1>Action cable, funcionou fdp?</h1>
+
+  <div>
+    <input type="checkbox" id="scales" name="scales"
+           checked>
+    <label for="scales">Funcionei</label>
+  </div>
+
+  <div>
+    <input type="checkbox" id="horns" name="horns">
+    <label for="horns">Não Funcionei</label>
+  </div>
+</div>
+
 <% @requests.each do |request| %>
   <%= request %>
 <% end %>
@@ -14,24 +29,6 @@
     App['trip_<%= @trip.id %>'] = App.cable.subscriptions.create(
       { channel: 'TripsChannel', trip_id: <%= @trip.id %> },
       { received: (data) => console.log(data) }
-    )
-  </script>
-<% end %>
-
-<% content_for :after_js do %>
-  <script>
-    scrollLastMessageIntoView();
-    App['chat_room_<%= @chat_room.id %>'] = App.cable.subscriptions.create(
-      { channel: 'ChatRoomsChannel', chat_room_id: <%= @chat_room.id %> },
-      {
-        received: (data) => {
-          if (data.current_user_id !== <%= current_user.id %>) {
-            const messagesContainer = document.querySelector('.messages');
-            messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
-            scrollLastMessageIntoView();
-          }
-        }
-      }
     )
   </script>
 <% end %>

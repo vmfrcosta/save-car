@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_204841) do
+ActiveRecord::Schema.define(version: 2019_11_28_180512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_204841) do
     t.datetime "updated_at", null: false
     t.string "winch_type"
     t.boolean "visible", default: true
+    t.string "model"
     t.index ["user_id"], name: "index_winches_on_user_id"
   end
 
