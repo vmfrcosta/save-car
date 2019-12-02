@@ -25,6 +25,9 @@ class WinchesController < ApplicationController
   end
 
   def edit
+    guinchos = Guincho.all
+    @brands = guinchos.map(&:brand).uniq
+    @models = guinchos.map(&:model).uniq
   end
 
   def update

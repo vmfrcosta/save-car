@@ -9,6 +9,9 @@ class Winch::WinchesController < ApplicationController
 
   def new
     @winch = Winch.new
+    guinchos = Guincho.all
+    @brands = guinchos.map(&:brand).uniq
+    @models = guinchos.map(&:model).uniq
   end
 
   def create
@@ -17,12 +20,14 @@ class Winch::WinchesController < ApplicationController
     if @winch.save
       redirect_to winches_path
     else
-      raise
       render :new
     end
   end
 
   def edit
+    guinchos = Guincho.all
+    @brands = guinchos.map(&:brand).uniq
+    @models = guinchos.map(&:model).uniq
   end
 
   def update
