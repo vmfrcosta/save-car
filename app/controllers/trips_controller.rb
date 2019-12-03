@@ -51,7 +51,7 @@ class TripsController < ApplicationController
       @trip.status = 'on the way'
       @trip.winch = Winch.find(params[:trip][:winch_id])
       @trip.save
-      @trip.broadcast_message(params[:win_init_lat], params[:win_init_long])
+      @trip.broadcast_message(params[:trip][:win_init_lat], params[:trip][:win_init_long])
       redirect_to trip_room_path(@trip)
     else
       redirect_to too_late_path
