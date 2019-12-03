@@ -8,18 +8,11 @@ const updateMap = (position) => {
   const lat = position.coords.latitude
   const lng = position.coords.longitude
   // console.log(lat)
-  if (markers.length === 2) {
-    markers.push({lat: lat, lng: lng})
-    // console.log({lat: lat, lng: lng})
-    const string = `[{${markers[0]['lat']}, ${markers[0]['lng']}}, {${markers[1]['lat']}, ${markers[1]['lng']}}, {${markers[2]['lat']}, ${markers[2]['lng']}}]`
-    map.dataset.markers = string
-    // console.log(string)
-  } else {
-    markers[2] = ({lat: lat, lng: lng})
-    const string = `[{${markers[0]['lat']}, ${markers[0]['lng']}}, {${markers[1]['lat']}, ${markers[1]['lng']}}]`
-    map.dataset.markers = string
-    // console.log(string)
-  }
+  markers.push({lat: lat, lng: lng})
+  // console.log({lat: lat, lng: lng})
+  const positions = [{"lat": markers[0]['lat'], "lng": markers[0]['lng']}, { "lat": markers[1]['lat'], "lng": markers[1]['lng']}, { "lat": markers[2]['lat'], "lng": markers[2]['lng']}];
+  map.dataset.markers = JSON.stringify(positions);
+  // console.log(string)
   updateRoutes()
 }
 

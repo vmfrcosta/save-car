@@ -44,13 +44,11 @@
       setInterval(()=>{
         navigator.geolocation.getCurrentPosition(updateMap)
         const markers = eval(document.querySelector('#map').dataset.markers);
-        // const lat = markers[1]['lat'];
-        // const lng = markers[1]['lng'];
-        // console.log(markers)
+        const lat = markers[1]['lat'];
+        const lng = markers[1]['lng'];
         const url = "<%= trip_win_loc_path(@trip.id) %>";
         fetch(`${url}?lat=${lat}&lng=${lng}`);
         console.log("info sent");
-
       }, 10000);
     <% end %>
   </script>
