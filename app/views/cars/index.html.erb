@@ -1,15 +1,14 @@
-<h1>Pages#home</h1>
-<p>Cars Index</p>
-
 <div class="bg">
   <div class="container">
     <div class="text-primary">
-
       <div class="cards">
         <% @cars.each do |car| %>
           <% if car.visible %>
             <div class="card-trip m-2">
-              <%= link_to user_car_path(current_user, car), class:"a border-0" do %>
+          
+
+              <%= link_to user_car_path(current_user, car), class:"a border-0 image-hoveffect-zoomlong" do %>
+
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj85G1Zl_5aj8CG-FYz79H0nsLghX4IkVcJJ5y80yyTkpn6cXk&s"/>
               <% end %>
               <div class="card-trip-infos">
@@ -23,13 +22,16 @@
                     <% end %>
                   </div>
                 </div>
-                <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered"/>
               </div>
             </div>
           <% end %>
         <% end %>
       </div>
+   
       <%= link_to 'Novo Carro', new_user_car_path(current_user), class:"btn btn-primary" %>
     </div>
   </div>
 </div>
+
+
+
