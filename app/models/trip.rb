@@ -7,6 +7,9 @@ class Trip < ApplicationRecord
   belongs_to :winch, optional: true
   belongs_to :car, optional: true
   belongs_to :user, optional: true
+  
+  geocoded_by :geo_address
+  
   # validates :description, presence: true
   # validates :status, presence: true
   # validates :win_init_lat, presence: true
@@ -20,15 +23,12 @@ class Trip < ApplicationRecord
   # validates :car, presence: true
   # validates :winch, presence: true
 
-  def broadcast_message(lat, long)
+  def broadcast_message(lat, lng)
+    # puts lng
     ActionCable.server.broadcast("trip_#{id}", {
-      message_partial: ApplicationController.renderer.render(
-        # partial: 'trips/marker',
-        locals: { trip: self, lat: lat, long: long }
-      ),
+      locals: { trip: self, lat: lat, lng: lng },
       current_user_id: user.id
     })
   end
 
-  geocoded_by :geo_address
 end

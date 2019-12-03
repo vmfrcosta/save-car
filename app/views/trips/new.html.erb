@@ -12,7 +12,7 @@
 				<%= f.input :dest_address, input_html: { class: 'form-control w-100', placeholder: 'Endereço do destino', id: 'dest-address' }, label: false, required: true  %>
 				<%= f.input :car_lat, as: :hidden, input_html: { id: 'car-lat' }, label: false %>
 				<%= f.input :car_long, as: :hidden, input_html: { id: 'car-long' }, label: false %>
-				<% if current_user.cars.length == 1 %>
+				<% if current_user.cars.length <= 1 %>
 					<%= f.input :car, as: :hidden, input_html: { value: current_user.cars.first }, label: false %>
 				<% else %>
 				<!-- ha -->

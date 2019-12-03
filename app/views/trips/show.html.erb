@@ -29,7 +29,11 @@
     App['trip_<%= @trip.id %>'] = App.cable.subscriptions.create(
       { channel: 'TripsChannel', trip_id: <%= @trip.id %> },
       { received: (data) => {
-          console.log(data);
+          // console.log(data);
+          // console.log(data['locals']['lat'])
+          <% if current_user == @trip.user %>
+            updateUserMap(data['locals']['lat'], data['locals']['lng'])
+          <% end %>
           // take the map (getElementById)
           // take the winch's lat and lon (inside data)
           // remove the previous winch mark from the map
@@ -41,11 +45,14 @@
     );
 
     <% unless current_user == @trip.user %>
-      setInterval(()=>{ 
-        // lat = ??;
-        // long = ??;
-        fetch('<%= trip_win_loc_path(@trip.id) %>');
-        console.log(`{lat: ${<%= @trip.winch.win_lat %>}, lng: ${<%= @trip.winch.win_long %>} }`);
+      setInterval(()=>{
+        navigator.geolocation.getCurrentPosition(updateMap)
+        const markers = eval(document.querySelector('#map').dataset.markers);
+        const lat = markers[2]['lat'];
+        const lng = markers[2]['lng'];
+        const url = "<%= trip_win_loc_path(@trip.id) %>";
+        fetch(`${url}?lat=${lat}&lng=${lng}`);
+        console.log("info sent");
       }, 10000);
     <% end %>
   </script>
