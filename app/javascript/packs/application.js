@@ -5,6 +5,7 @@ import { setCarLocation } from '../components/location_notification';
 import { initSelect2Cars } from '../components/init_select2_cars';
 import { initSelect2Winches } from '../components/init_select2_winches';
 import { scrollLastMessageIntoView } from '../components/scroll';
+import { updateMap } from '../components/update_map'
 
 initSelect2Cars();
 initSelect2Winches();

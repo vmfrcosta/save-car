@@ -7,6 +7,9 @@ class Trip < ApplicationRecord
   belongs_to :winch, optional: true
   belongs_to :car, optional: true
   belongs_to :user, optional: true
+  
+  geocoded_by :geo_address
+  
   # validates :description, presence: true
   # validates :status, presence: true
   # validates :win_init_lat, presence: true
@@ -29,5 +32,4 @@ class Trip < ApplicationRecord
     })
   end
 
-  geocoded_by :geo_address
 end

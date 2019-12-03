@@ -40,13 +40,17 @@
       }
     );
 
-    // <% unless current_user == @trip.user %>
-    //   setInterval(()=>{ 
-    //     lat = ??;
-    //     long = ??;
-    //     fetch('<%= trip_win_loc_path(@trip.id, lat: ??, long: ??) %>');
-    //     console.log("info sent");
-    //   }, 10000);
-    // <% end %>
+    <% unless current_user == @trip.user %>
+      setInterval(()=>{ 
+        navigator.geolocation.getCurrentPosition(updateMap)
+        const markers = eval(document.querySelector('#map').dataset.markers);
+        // const lat = markers[1]['lat'];
+        // const lng = markers[1]['lng'];
+        // console.log(markers)
+        const url = "<%= trip_win_loc_path(@trip.id) %>";
+        fetch(`${url}?lat=${lat}&lng=${lng}`);
+        console.log("info sent");
+      }, 10000);
+    <% end %>
   </script>
 <% end %>
