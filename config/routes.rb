@@ -15,14 +15,10 @@ Rails.application.routes.draw do
 
   root to: 'trips#new'
 
-  namespace :winch do
+  resources :users do
     resources :winches
-  end
-
-  namespace :user do
     resources :cars
   end
 
   mount ActionCable.server => '/cable'
-
 end

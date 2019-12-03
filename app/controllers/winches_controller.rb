@@ -1,7 +1,9 @@
 class WinchesController < ApplicationController
   before_action :set_winch, only: %i[show edit update destroy]
+  before_action :check_owner, only: %i[show edit update destroy]
+
   def index
-    @winches = Winch.all
+    @winches = current_user.winches
   end
 
   def show
@@ -18,7 +20,7 @@ class WinchesController < ApplicationController
     @winch = Winch.new(winch_params)
     @winch.user = current_user
     if @winch.save
-      redirect_to winches_path
+      redirect_to user_winches_path(current_user)
     else
       render :new
     end
@@ -31,18 +33,17 @@ class WinchesController < ApplicationController
   end
 
   def update
-    @winch.update(winch_params)
     if @winch.update(winch_params)
-      redirect_to winch_path
+      redirect_to user_winch_path(current_user, @winch)
     else
-      render :edit
+      render :new
     end
   end
 
   def destroy
     @winch.visible = false
     @winch.save
-    redirect_to winches_path
+    redirect_to user_winches_path(current_user)
   end
 
   private
@@ -50,13 +51,24 @@ class WinchesController < ApplicationController
   def winch_params
     params.require(:winch).permit(
       :brand,
-      :plate,
       :winch_type,
-      :model
+      :plate
     )
   end
 
   def set_winch
     @winch = current_user.winches.find(params[:id])
+  end
+
+  def check_admin
+    unless current_user.admin
+      redirect_to root_path
+    end
+  end
+
+  def check_owner
+    unless current_user == User.find(params[:user_id])
+      redirect_to root_path
+    end
   end
 end

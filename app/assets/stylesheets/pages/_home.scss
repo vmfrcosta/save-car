@@ -1,1 +1,60 @@
 // Specific CSS for your home-page
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-weight:inherit;
+  font-style:inherit;
+  font-size:100%;
+  font-family:inherit;
+  vertical-align:baseline;
+}
+html {
+  font-size:101%;
+  font-family:Arial,verdana,arial,sans-serif;
+  font-size:18px;
+  -webkit-text-size-adjust:none;
+  color:#6F6F6F;
+  background-color:#efefef;
+}
+body{
+  min-height:100%;
+  height:auto;
+  width:100%;
+}
+footer, header, section {
+  display:block;
+}
+a{ color:#6F6F6F; text-decoration:none; cursor:pointer; }
+a:hover { text-decoration:underline }
+p, ul, ol{
+  margin:18px 0;
+  line-height:1.5em;
+}
+li{
+  list-style:none;
+}
+li.placeholder{
+  height:70px;
+  width:100%;
+  font-size:16px;
+}
+hr {
+  display:block;
+  height:0px;
+  line-height:0px;
+  border:0;
+  border-top:1px solid #ddd;
+  border-bottom:1px solid #aaa;
+  margin:16px 0;
+  padding:0;
+  clear:both;
+  float:none;
+}
+hr.notop{
+  margin-top:0;
+}
+strong{
+  font-weight:700;
+}

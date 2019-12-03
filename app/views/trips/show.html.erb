@@ -41,7 +41,7 @@
     );
 
     <% unless current_user == @trip.user %>
-      setInterval(()=>{ 
+      setInterval(()=>{
         navigator.geolocation.getCurrentPosition(updateMap)
         const markers = eval(document.querySelector('#map').dataset.markers);
         // const lat = markers[1]['lat'];
@@ -50,6 +50,7 @@
         const url = "<%= trip_win_loc_path(@trip.id) %>";
         fetch(`${url}?lat=${lat}&lng=${lng}`);
         console.log("info sent");
+
       }, 10000);
     <% end %>
   </script>
