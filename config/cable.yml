@@ -1,4 +1,4 @@
-development:'../components/scroll'
+development: 
   adapter: async
 
 test:
