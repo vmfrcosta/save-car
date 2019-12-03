@@ -32,12 +32,11 @@ class TripsController < ApplicationController
     @trip.dest_long = geocoded['lon']
     @trip.status = 'searching'
     @trip.user = current_user
-    @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
-    # @winches = Winch.all
+    # @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
+    @winches = Winch.all
     @requests = []
     if @trip.save
       @winches.each do |winch|
-        tr = TripRequest.create!(winch: winch, trip: @trip)
         @requests << TripRequest.create(winch: winch, trip: @trip)
       end
       redirect_to trip_room_path(@trip)
@@ -50,8 +49,9 @@ class TripsController < ApplicationController
     if @trip.status == 'searching'
       @trip.update(trip_params)
       @trip.status = 'on the way'
+      @trip.winch = Winch.find(params[:trip][:winch_id])
       @trip.save
-      @trip.broadcast_message(params[:win_init_lat], params[:win_init_long])
+      @trip.broadcast_message(params[:trip][:win_init_lat], params[:trip][:win_init_long])
       redirect_to trip_room_path(@trip)
     else
       redirect_to too_late_path

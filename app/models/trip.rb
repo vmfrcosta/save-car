@@ -23,6 +23,7 @@ class Trip < ApplicationRecord
   def broadcast_message(lat, long)
     ActionCable.server.broadcast("trip_#{id}", {
       message_partial: ApplicationController.renderer.render(
+        # partial: 'trips/marker',
         locals: { trip: self, lat: lat, long: long }
       ),
       current_user_id: user.id
