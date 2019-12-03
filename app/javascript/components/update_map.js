@@ -1,3 +1,5 @@
+import { updateRoutes } from '../components/update_routes'
+
 const updateMap = (position) => {
   const map = document.querySelector('#map')
   const markers = eval(map.dataset.markers)
@@ -18,6 +20,7 @@ const updateMap = (position) => {
     map.dataset.markers = string
     // console.log(string)
   }
+  updateRoutes()
 }
 
 window.updateMap = updateMap;
