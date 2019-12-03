@@ -60,7 +60,7 @@ class TripsController < ApplicationController
 
   def update_win_location
     if @trip.status == 'on the way'
-      @trip.broadcast_message(params[:lat], params[:long])
+      @trip.broadcast_message(params[:lat], params[:lng])
     else
       raise
     end

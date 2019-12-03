@@ -6,6 +6,7 @@ import { initSelect2Cars } from '../components/init_select2_cars';
 import { initSelect2Winches } from '../components/init_select2_winches';
 import { scrollLastMessageIntoView } from '../components/scroll';
 import { updateMap } from '../components/update_map'
+import { updateUserMap } from '../components/update_user_map'
 
 initSelect2Cars();
 initSelect2Winches();
