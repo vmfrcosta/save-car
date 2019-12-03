@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
   # skip_before_action :authenticate_user!, only: :new
   before_action :set_user
-  before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy, :update_win_location]
 
   def index
     @trip = Trip.all
@@ -32,14 +32,15 @@ class TripsController < ApplicationController
     @trip.dest_long = geocoded['lon']
     @trip.status = 'searching'
     @trip.user = current_user
-    # @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
-    @winches = Winch.all
+    @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
+    # @winches = Winch.all
     @requests = []
     if @trip.save
       @winches.each do |winch|
+        tr = TripRequest.create!(winch: winch, trip: @trip)
         @requests << TripRequest.create(winch: winch, trip: @trip)
       end
-        redirect_to trip_room_path(@trip)
+      redirect_to trip_room_path(@trip)
     else
       raise
     end
@@ -50,9 +51,18 @@ class TripsController < ApplicationController
       @trip.update(trip_params)
       @trip.status = 'on the way'
       @trip.save
+      @trip.broadcast_message(params[:win_init_lat], params[:win_init_long])
       redirect_to trip_room_path(@trip)
     else
       redirect_to too_late_path
+    end
+  end
+
+  def update_win_location
+    if @trip.status == 'on the way'
+      @trip.broadcast_message(params[:lat], params[:long])
+    else
+      raise
     end
   end
 

@@ -1,5 +1,6 @@
 class Trip < ApplicationRecord
   extend Geocoder::Model::ActiveRecord
+  # after_create :broadcast_message
   has_many :photos, dependent: :destroy
   has_many :trip_requests
 
@@ -19,11 +20,10 @@ class Trip < ApplicationRecord
   # validates :car, presence: true
   # validates :winch, presence: true
 
-  def broadcast_message
-    ActionCable.server.broadcast("trip_#{trip.id}", {
+  def broadcast_message(lat, long)
+    ActionCable.server.broadcast("trip_#{id}", {
       message_partial: ApplicationController.renderer.render(
-        partial: "trips/show",
-        locals: { message: self, user_is_messages_author: false }
+        locals: { trip: self, lat: lat, long: long }
       ),
       current_user_id: user.id
     })
