@@ -1,0 +1,13 @@
+const arrivedBtn = document.querySelector('#arrived-btn')
+const deliveredBtn = document.querySelector('#delivered-btn')
+if (arrivedBtn.hidden === false) {
+	arrivedBtn.hidden = true
+	deliveredBtn.hidden = false
+	navigator.geolocation.getCurrentPosition(updateMap)
+	const markers = eval(document.querySelector('#map').dataset.markers);
+	const hidden = document.querySelector('#arrived-btn').hidden;
+	const lat = markers[2]['lat'];
+	const lng = markers[2]['lng'];
+	const url = "<%= trip_win_loc_path(@trip.id) %>";
+	fetch(`${url}?lat=${lat}&lng=${lng}&hidden=${hidden}`);
+}

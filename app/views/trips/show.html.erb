@@ -5,24 +5,46 @@
   data-markers="<%= @markers.to_json %>"
 ></div>
 
-<div class="container">
-  <h1>Action cable, funcionou fdp?</h1>
-
-  <div>
-    <input type="checkbox" id="work" name="work"
-           checked>
-    <label for="work">Funcionei</label>
-  </div>
-
-  <div>
-    <input type="checkbox" id="dntwork" name="dntwork">
-    <label for="dntwork">Não Funcionei</label>
+<div class="container mt-3">
+  <div class="card p-3" id="infos-user" hidden>
+    <div class="d-flex justify-content-around align-items-center">
+      <div class="user-name">
+        <h2><%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %></h2>
+      </div>
+      <div class="car-info">
+        <p><%= "#{@trip.car.brand} #{@trip.car.model}" %></p>
+        <p><%= @trip.car.plate %></p>
+      </div>
+      <p><%= @trip.dest_address %></p>
+    </div>
+    <div class="mt-3" id="arrived-btn">
+      <%= simple_form_for @trip, remote: true do |f| %>
+        <%= f.input :status, as: :hidden, value: 'arrived' %>
+        <%= f.button :submit, 'Cheguei ao destino', class: 'btn btn-success btn-block' %>
+      <% end %>
+    </div>
+    <div class="mt-3" id="delivered-btn" hidden>
+      <%= simple_form_for @trip do |f| %>
+        <%= f.input :status, as: :hidden, value: 'delivered' %>
+        <%= f.button :submit, 'Carro entregue ao destino correto', class: 'btn btn-success btn-block' %>
+      <% end %>
+    </div>
   </div>
 </div>
 
-<% @requests.each do |request| %>
-  <%= request %>
-<% end %>
+<div class="container mt-3">
+  <div class="card" id="infos-winch" hidden>
+    <div class="d-flex justify-content-around align-items-center">
+      <div class="user-name">
+        <h2><%= "#{@trip.winch.user.first_name} #{@trip.winch.user.last_name}" %></h2>
+      </div>
+      <div class="car-info">
+        <p><%= @trip.winch.plate %></p>
+      </div>
+    </div>
+    <%= link_to 'delivered', delivered_trip_path(@trip), style: 'display: none' %>
+  </div>
+</div>
 
 <% content_for :after_js do %>
   <script>
@@ -32,14 +54,8 @@
           console.log(data);
           console.log(data['locals']['lat'])
           <% if current_user == @trip.user %>
-            updateUserMap(data['locals']['lat'], data['locals']['lng'])
+            updateUserMap(data['locals']['lat'], data['locals']['lng'], data['locals']['hidden'])
           <% end %>
-          // take the map (getElementById)
-          // take the winch's lat and lon (inside data)
-          // remove the previous winch mark from the map
-          // create a new marker in the map with the new lat and lon (map.addMarkers)
-          // get the origin marker (map.dataset.markers[0])
-          // draw a route from the winch marker to the origin marker (drawRoute)
         } 
       }
     );
@@ -48,12 +64,19 @@
       setInterval(()=>{
         navigator.geolocation.getCurrentPosition(updateMap)
         const markers = eval(document.querySelector('#map').dataset.markers);
+        const hidden = document.querySelector('#arrived-btn').hidden;
         const lat = markers[2]['lat'];
         const lng = markers[2]['lng'];
         const url = "<%= trip_win_loc_path(@trip.id) %>";
-        fetch(`${url}?lat=${lat}&lng=${lng}`);
+        fetch(`${url}?lat=${lat}&lng=${lng}&hidden=${hidden}`);
         console.log("info sent");
       }, 10000);
+    <% end %>
+
+    <% if current_user == @trip.car.user %>
+      document.querySelector('#infos-winch').hidden = false
+    <% else %>
+      document.querySelector('#infos-user').hidden = false
     <% end %>
   </script>
 <% end %>

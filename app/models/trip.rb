@@ -23,10 +23,10 @@ class Trip < ApplicationRecord
   # validates :car, presence: true
   # validates :winch, presence: true
 
-  def broadcast_message(lat, lng)
+  def broadcast_message(lat, lng, hidden)
     # puts lng
     ActionCable.server.broadcast("trip_#{id}", {
-      locals: { trip: self, lat: lat, lng: lng },
+      locals: { trip: self, lat: lat, lng: lng, hidden: hidden },
       current_user_id: user.id
     })
   end

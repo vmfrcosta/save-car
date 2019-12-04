@@ -53,6 +53,15 @@ class TripsController < ApplicationController
       @trip.save
       @trip.broadcast_message(params[:trip][:win_init_lat], params[:trip][:win_init_long])
       redirect_to trip_room_path(@trip)
+    elsif current_user == @trip.winch.user && @trip.status == 'on the way'
+      @trip.update(status: params[:status])
+      respond_to do |format|
+        format.js
+        format.html { redirect_to trip_room_path(@trip) }
+      end
+    elsif current_user == @trip.winch.user && @trip.status == 'arrived'
+      @trip.update(status: params[:status])
+      redirect_to deliverd_trip_path(@trip)
     else
       redirect_to too_late_path
     end
@@ -60,7 +69,7 @@ class TripsController < ApplicationController
 
   def update_win_location
     if @trip.status == 'on the way'
-      @trip.broadcast_message(params[:lat], params[:lng])
+      @trip.broadcast_message(params[:lat], params[:lng], params[:hidden])
     else
       raise
     end
@@ -85,6 +94,10 @@ class TripsController < ApplicationController
     end
   end
 
+  def delivered
+
+  end
+
   private
 
   def set_trip
@@ -92,7 +105,7 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:win_init_long, :win_init_lat, :car_lat, :car_long, :car_address, :dest_address, :winch_id)
+    params.require(:trip).permit(:win_init_long, :win_init_lat, :car_lat, :car_long, :car_address, :dest_address, :winch_id, :status)
   end
 
   def set_winch
