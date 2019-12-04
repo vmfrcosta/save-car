@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'trip/trips_room/:id', to: 'trips#show', as: 'trip_room'
   get 'trip/trips_room/:id/update_location', to: 'trips#update_win_location', as: 'trip_win_loc'
   get 'delivered/:id', to: 'trips#delivered', as: 'delivered_trip'
+
   devise_for :users
 
   resources :winches
@@ -19,6 +20,5 @@ Rails.application.routes.draw do
     resources :winches
     resources :cars
   end
-
   mount ActionCable.server => '/cable'
 end
