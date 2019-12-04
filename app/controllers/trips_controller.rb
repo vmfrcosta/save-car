@@ -53,10 +53,9 @@ class TripsController < ApplicationController
       @trip.winch = Winch.find(params[:trip][:winch_id])
       @trip.save
       status = @trip.status
-      first_name = @trip.winch.user.first_name
-      last_name = @trip.winch.user.last_name
-      plate = @trip.winch.user.plate
-      @trip.broadcast_message(lat: params[:trip][:win_init_lat], lng: params[:trip][:win_init_long], status: status, first_name: first_name, last_name: last_name, plate: plate)
+      name = "#{@trip.winch.user.first_name} #{@trip.winch.user.last_name}"
+      plate = @trip.winch.plate
+      @trip.broadcast_message(lat: params[:trip][:win_init_lat], lng: params[:trip][:win_init_long], status: status, name: name, plate: plate)
       redirect_to trip_room_path(@trip)
     elsif current_user == @trip.winch.user && @trip.status == 'on the way'
       @trip.update(status: params[:status])
@@ -73,11 +72,7 @@ class TripsController < ApplicationController
   end
 
   def update_win_location
-    if @trip.status == 'on the way'
-      @trip.broadcast_message(params[:lat], params[:lng], params[:status])
-    else
-      raise
-    end
+    @trip.broadcast_message(lat: params[:lat], lng: params[:lng], status: params[:status], name: params[:name], plate: params[:plate])
   end
 
   def destroy
