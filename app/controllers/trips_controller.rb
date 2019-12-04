@@ -96,6 +96,7 @@ class TripsController < ApplicationController
   end
 
   def delivered
+    #markers for map
     @markers = [
       {lat: @trip.car_lat, lng: @trip.car_long},
       {lat: @trip.dest_lat, lng: @trip.dest_long}
