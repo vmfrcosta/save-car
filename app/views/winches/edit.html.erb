@@ -1,9 +1,9 @@
-<div class="container mt-3">
+<div class="container">
   <div class="align-items-center">
     <div class="col-sm-12 offset-md-3 col-md-6 text-primary">
 
       <%= simple_form_for @winch, method: 'patch', url: user_winch_path([current_user, @winch]) do |f| %>
-      <p class="h3 mt-5 pt-5 mb-5" style="margin-bottom: 3vh">Altere as informações do seu <strong>guincho</strong> abaixo!</p>
+      <p class="h3 mt-2 pt-5 mb-5" style="margin-bottom: 3vh"><strong>Altere</strong> as informações do seu guincho:</p>
         <%= f.error_notification %>
         <%= f.input :brand, collection: @brands, label_html: { class: 'text-secondary font-weight-bolder ml-4'},
                     input_html: { class: "select2", id: 'brand-select' }, label: 'Marca' %>
