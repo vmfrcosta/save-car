@@ -20,7 +20,7 @@
     <div class="mt-3" id="arrived-btn">
       <%= simple_form_for @trip, remote: true do |f| %>
         <%= f.input :status, as: :hidden, value: 'arrived' %>
-        <%= f.button :submit, 'Cheguei ao destino', class: 'btn btn-success btn-block' %>
+        <%= f.button :submit, 'Cheguei ao destino', class: 'btn btn-primary btn-block' %>
       <% end %>
     </div>
     <div class="mt-3" id="delivered-btn" hidden>
@@ -32,14 +32,20 @@
   </div>
 </div>
 
+<div class="container">
+  <div class="card align-items-center" id="searching">
+    <h2>Searching <i class="fas fa-spinner"></i></h2>
+  </div>
+</div>
+
 <div class="container mt-3">
   <div class="card" id="infos-winch" hidden>
     <div class="d-flex justify-content-around align-items-center">
       <div class="user-name">
-        <h2><%= "#{@trip.winch.user.first_name} #{@trip.winch.user.last_name}" %></h2>
+        <h2 id="winch-user-name"> winch.user.first_name winch.user.first_name </h2>
       </div>
-      <div class="car-info">
-        <p><%= @trip.winch.plate %></p>
+      <div class="winch-info">
+        <p id="winch-plate"> winch plate </p>
       </div>
     </div>
     <%= link_to 'delivered', delivered_trip_path(@trip), style: 'display: none' %>
@@ -54,7 +60,7 @@
           console.log(data);
           console.log(data['locals']['lat'])
           <% if current_user == @trip.user %>
-            updateUserMap(data['locals']['lat'], data['locals']['lng'], data['locals']['hidden'])
+            updateUserMap(data['locals']['lat'], data['locals']['lng'], data['locals']['status'])
           <% end %>
         } 
       }
@@ -68,14 +74,12 @@
         const lat = markers[2]['lat'];
         const lng = markers[2]['lng'];
         const url = "<%= trip_win_loc_path(@trip.id) %>";
-        fetch(`${url}?lat=${lat}&lng=${lng}&hidden=${hidden}`);
+        fetch(`${url}?lat=${lat}&lng=${lng}&status=${status}&first_name=${first_name}&last_name=${last_name}&plate=${plate}`);
         console.log("info sent");
       }, 10000);
     <% end %>
 
-    <% if current_user == @trip.car.user %>
-      document.querySelector('#infos-winch').hidden = false
-    <% else %>
+    <% unless current_user == @trip.car.user %>
       document.querySelector('#infos-user').hidden = false
     <% end %>
   </script>

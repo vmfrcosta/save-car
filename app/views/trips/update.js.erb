@@ -9,5 +9,5 @@ if (arrivedBtn.hidden === false) {
 	const lat = markers[2]['lat'];
 	const lng = markers[2]['lng'];
 	const url = "<%= trip_win_loc_path(@trip.id) %>";
-	fetch(`${url}?lat=${lat}&lng=${lng}&hidden=${hidden}`);
+	fetch(`${url}?lat=${lat}&lng=${lng}&status=arrived`);
 }

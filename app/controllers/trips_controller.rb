@@ -32,6 +32,7 @@ class TripsController < ApplicationController
     @trip.dest_long = geocoded['lon']
     @trip.status = 'searching'
     @trip.user = current_user
+    @trip.car = @trip.user.cars.first
     # @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
     @winches = Winch.all
     @requests = []
@@ -51,7 +52,11 @@ class TripsController < ApplicationController
       @trip.status = 'on the way'
       @trip.winch = Winch.find(params[:trip][:winch_id])
       @trip.save
-      @trip.broadcast_message(params[:trip][:win_init_lat], params[:trip][:win_init_long])
+      status = @trip.status
+      first_name = @trip.winch.user.first_name
+      last_name = @trip.winch.user.last_name
+      plate = @trip.winch.user.plate
+      @trip.broadcast_message(lat: params[:trip][:win_init_lat], lng: params[:trip][:win_init_long], status: status, first_name: first_name, last_name: last_name, plate: plate)
       redirect_to trip_room_path(@trip)
     elsif current_user == @trip.winch.user && @trip.status == 'on the way'
       @trip.update(status: params[:status])
@@ -61,7 +66,7 @@ class TripsController < ApplicationController
       end
     elsif current_user == @trip.winch.user && @trip.status == 'arrived'
       @trip.update(status: params[:status])
-      redirect_to deliverd_trip_path(@trip)
+      redirect_to delivered_trip_path(@trip)
     else
       redirect_to too_late_path
     end
@@ -69,7 +74,7 @@ class TripsController < ApplicationController
 
   def update_win_location
     if @trip.status == 'on the way'
-      @trip.broadcast_message(params[:lat], params[:lng], params[:hidden])
+      @trip.broadcast_message(params[:lat], params[:lng], params[:status])
     else
       raise
     end
