@@ -1,0 +1,34 @@
+.lower-section,
+.upper-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(#2980b9, 0.5);
+
+  span { font-size: 2.2rem; }
+} 
+.upper-section {
+  min-height: 5vh;
+  width: 100%;
+  background: #34495e;
+}
+.lower-section{
+  min-height: 3.5vh;
+  width: 100%;
+  background:  #FFF;
+}
+.section-divider {
+  position: relative;
+}
+.section-divider:before {
+      content: url("savecar_logo.svg"); 
+      position: absolute;
+      width: 3.5rem;
+      height: 3.5rem;
+      top: -2.75rem;
+      left: calc(50% - 1.75rem);
+      padding: .3rem;
+      padding-right: .4rem;
+      border-radius: 100%;
+      background: #FFF;
+    }
