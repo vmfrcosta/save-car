@@ -5,24 +5,54 @@
   data-markers="<%= @markers.to_json %>"
 ></div>
 
-<div class="container">
-  <h1>Action cable, funcionou fdp?</h1>
+<div id="status" hidden><%= @trip.status %></div>
 
-  <div>
-    <input type="checkbox" id="work" name="work"
-           checked>
-    <label for="work">Funcionei</label>
-  </div>
-
-  <div>
-    <input type="checkbox" id="dntwork" name="dntwork">
-    <label for="dntwork">Não Funcionei</label>
+<div class="container mt-3">
+  <div class="card align-items-center" id="searching">
+    <h2>Searching <i class="fas fa-spinner"></i></h2>
   </div>
 </div>
 
-<% @requests.each do |request| %>
-  <%= request %>
-<% end %>
+<div class="container mt-3">
+  <div class="card p-3" id="infos-user" hidden>
+    <div class="d-flex justify-content-around align-items-center">
+      <div class="user-name">
+        <h2><%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %></h2>
+      </div>
+      <div class="car-info">
+        <p><%= "#{@trip.car.brand} #{@trip.car.model}" %></p>
+        <p><%= @trip.car.plate %></p>
+      </div>
+      <p><%= @trip.dest_address %></p>
+    </div>
+    <div class="mt-3" id="arrived-btn">
+      <%= simple_form_for @trip, remote: true do |f| %>
+        <%= f.input :status, as: :hidden, input_html: { value: 'arrived' } %>
+        <%= f.button :submit, 'Cheguei ao destino', class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </div>
+    <div class="mt-3" id="delivered-btn" hidden>
+      <%= simple_form_for @trip do |f| %>
+        <%= f.input :status, as: :hidden, input_html: { value: 'delivered' } %>
+        <%= f.button :submit, 'Carro entregue ao destino correto', class: 'btn btn-success btn-block' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div class="card" id="infos-winch" hidden>
+    <div class="d-flex justify-content-around align-items-center">
+      <div class="user-name">
+        <h2 id="winch-user-name"> winch.user.first_name winch.user.first_name </h2>
+      </div>
+      <div class="winch-info">
+        <p id="winch-plate">winch plate</p>
+      </div>
+    </div>
+    <%= link_to 'delivered', delivered_trip_path(@trip), style: 'display: none', id: 'delivered-btn' %>
+  </div>
+</div>
 
 <% content_for :after_js do %>
   <script>
@@ -30,16 +60,30 @@
       { channel: 'TripsChannel', trip_id: <%= @trip.id %> },
       { received: (data) => {
           console.log(data);
-          console.log(data['locals']['lat'])
+          document.querySelector('#searching').hidden = true
+
           <% if current_user == @trip.user %>
-            updateUserMap(data['locals']['lat'], data['locals']['lng'])
+            const status = document.querySelector('#status')
+            if (data['locals']['status'] === 'arrived' && status.innerText === 'on the way') {
+              alert('Seu guincho chegou!')
+            }
+            document.querySelector('#infos-winch').hidden = false
+            status.innerText = data['locals']['status']
+            document.querySelector('#winch-user-name').innerText = data['winch']['name']
+            document.querySelector('#winch-plate').innerText = data['winch']['plate']
+            updateUserMap(data['locals']['lat'], data['locals']['lng'], data['locals']['status'])
+
+            
+            if (data['locals']['status'] === 'delivered') {
+              console.log(data['locals']['status'])
+              if (confirm('O guincheiro finalizou o serviço!')) {
+                window.location.href = "<%= delivered_trip_path(@trip) %>"
+              } else {
+                window.location.href = "<%= delivered_trip_path(@trip) %>"
+              }
+            }
           <% end %>
-          // take the map (getElementById)
-          // take the winch's lat and lon (inside data)
-          // remove the previous winch mark from the map
-          // create a new marker in the map with the new lat and lon (map.addMarkers)
-          // get the origin marker (map.dataset.markers[0])
-          // draw a route from the winch marker to the origin marker (drawRoute)
+
         } 
       }
     );
@@ -48,12 +92,40 @@
       setInterval(()=>{
         navigator.geolocation.getCurrentPosition(updateMap)
         const markers = eval(document.querySelector('#map').dataset.markers);
-        const lat = markers[2]['lat'];
-        const lng = markers[2]['lng'];
+        const hidden = document.querySelector('#arrived-btn').hidden;
+        console.log(document.querySelector('#status').innerText)
+        const name = document.querySelector('#winch-user-name').innerText
+        const plate = document.querySelector('#winch-plate').innerText
+        const status = document.querySelector('#status').innerText
+        console.log(name)
+        console.log(plate)
         const url = "<%= trip_win_loc_path(@trip.id) %>";
-        fetch(`${url}?lat=${lat}&lng=${lng}`);
+        if (document.querySelector('#status').innerText === 'on the way') {
+          fetch(`${url}?lat=${markers[2]['lat']}&lng=${markers[2]['lng']}&status=${status}&name=${name}&plate=${plate}`);
+        } else {
+          fetch(`${url}?lat=${markers[1]['lat']}&lng=${markers[1]['lng']}&status=${status}&name=${name}&plate=${plate}`);
+        }
+
         console.log("info sent");
       }, 10000);
+    <% end %>
+
+    <% if current_user == @trip.car.user %>
+      if (document.querySelector('#winch-plate').innerText !== 'winch plate') {
+        document.querySelector('#infos-winch').hidden = false
+        document.querySelector('#searching').hidden = true
+        document.querySelector('#status').innerText = 'on the way'
+      }
+    <% elsif current_user == @trip.winch.user %>
+      document.querySelector('#searching').hidden = true
+      document.querySelector('#infos-user').hidden = false
+      const name = '<%= "#{current_user.first_name} #{current_user.last_name}" %>'
+      document.querySelector('#winch-user-name').innerText = name
+      document.querySelector('#winch-plate').innerText = '<%= @trip.winch.plate %>'
+      if (document.querySelector('#status').innerText === 'arrived') {
+        document.querySelector('#arrived-btn').hidden = true
+        document.querySelector('#delivered-btn').hidden = false
+      }
     <% end %>
   </script>
 <% end %>
