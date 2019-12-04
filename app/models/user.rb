@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_many :cars
 
   has_many :trips
-  mount_uploader :url, PhotoUploader
+  mount_uploader :photo, PhotoUploader
 
   # validates :first_name, presence: true
   # validates :last_name, presence: true
