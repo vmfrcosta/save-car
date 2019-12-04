@@ -74,8 +74,13 @@
             updateUserMap(data['locals']['lat'], data['locals']['lng'], data['locals']['status'])
 
             
-            if (document.querySelector('#status').innerText === 'delivered') {
-              document.querySelector('#delivered-btn').click()
+            if (data['locals']['status'] === 'delivered') {
+              console.log(data['locals']['status'])
+              if (confirm('O guincheiro finalizou o serviço!')) {
+                window.location.href = "<%= delivered_trip_path(@trip) %>"
+              } else {
+                window.location.href = "<%= delivered_trip_path(@trip) %>"
+              }
             }
           <% end %>
 
@@ -88,8 +93,6 @@
         navigator.geolocation.getCurrentPosition(updateMap)
         const markers = eval(document.querySelector('#map').dataset.markers);
         const hidden = document.querySelector('#arrived-btn').hidden;
-        console.log(markers[2]['lat'])
-        console.log(markers[1]['lat'])
         console.log(document.querySelector('#status').innerText)
         const name = document.querySelector('#winch-user-name').innerText
         const plate = document.querySelector('#winch-plate').innerText
@@ -119,6 +122,10 @@
       const name = '<%= "#{current_user.first_name} #{current_user.last_name}" %>'
       document.querySelector('#winch-user-name').innerText = name
       document.querySelector('#winch-plate').innerText = '<%= @trip.winch.plate %>'
+      if (document.querySelector('#status').innerText === 'arrived') {
+        document.querySelector('#arrived-btn').hidden = true
+        document.querySelector('#delivered-btn').hidden = false
+      }
     <% end %>
   </script>
 <% end %>

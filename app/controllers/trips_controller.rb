@@ -58,13 +58,14 @@ class TripsController < ApplicationController
       @trip.broadcast_message(lat: params[:trip][:win_init_lat], lng: params[:trip][:win_init_long], status: status, name: name, plate: plate)
       redirect_to trip_room_path(@trip)
     elsif current_user == @trip.winch.user && @trip.status == 'on the way'
-      @trip.update(status: params[:status])
+      @trip.update(status: 'arrived')
       respond_to do |format|
         format.js
         format.html { redirect_to trip_room_path(@trip) }
       end
     elsif current_user == @trip.winch.user && @trip.status == 'arrived'
-      @trip.update(status: params[:status])
+      @trip.update(status: 'delivered')
+      @trip.broadcast_message(status: 'delivered')
       redirect_to delivered_trip_path(@trip)
     else
       redirect_to too_late_path
