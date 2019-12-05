@@ -13,6 +13,19 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
+.card-category img{
+  background-size: cover;
+  background-position: center;
+  height: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
 
 .card-trip {
   overflow: hidden;
@@ -214,3 +227,80 @@
   }
 }
 
+/*list-show   */
+
+.list-values {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+
+}
+
+.list-values li {
+    background: rgb(229, 222, 222);
+    color: #FFFFFF;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    border-radius: 50rem;
+
+}
+
+.list-values-option{
+  color: #0269D9;
+  font-weight: bold;
+}
+
+.list-values li:last-child {
+    margin-bottom: 0;
+}
+
+
+.list-values li:after {
+    content: '';
+    clear: both;
+    display: none;
+}
+
+.list-values li > * {
+    display: inline-block;
+    padding: 9px 12px;
+}
+
+.list-values li .list-values-value-mask {
+    background: #5881D9;
+    float: right;
+    position: relative;
+    padding-left: 8px;
+    width: 150px;
+
+}
+
+.list-values li .list-values-value-mask .list-values-value {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+
+.list-values li .list-values-value-mask:before {
+    border-bottom: 41px solid #5881D9;
+    border-left: 15px solid transparent;
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 0;
+}
+
+.buttom {
+  padding: 0.375rem 0.75rem;
+  font-weight: bold;
+  text-align: center;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none !important;
+}

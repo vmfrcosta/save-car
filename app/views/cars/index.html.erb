@@ -5,10 +5,7 @@
         <% @cars.each do |car| %>
           <% if car.visible %>
             <div class="card-trip m-2">
-          
-
               <%= link_to user_car_path(current_user, car), class:"a border-0 image-hoveffect-zoomlong" do %>
-
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj85G1Zl_5aj8CG-FYz79H0nsLghX4IkVcJJ5y80yyTkpn6cXk&s"/>
               <% end %>
               <div class="card-trip-infos">
@@ -27,8 +24,6 @@
           <% end %>
         <% end %>
       </div>
-   
-      <%= link_to 'Novo Carro', new_user_car_path(current_user), class:"btn btn-primary" %>
     </div>
   </div>
 </div>
