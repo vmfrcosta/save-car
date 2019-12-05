@@ -1,6 +1,7 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background: transparent;
+  z-index: 1000;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -20,3 +21,31 @@
   line-height: inherit;
   white-space: nowrap;
 }
+
+.navbar-light .navbar-toggler {
+    color: rgba(0, 0, 0, 0.5);
+    background: white;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-radius: 45%;
+    box-shadow: 1px 1px 3px;
+    height: 10vw;
+    width: 10vw;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: fixed;
+    right: 20px;
+    top: 20px
+  }
+
+  .navbar-toggler-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    content: "";
+    background: no-repeat center center;
+    background-size: 100% 100%;
+  }
