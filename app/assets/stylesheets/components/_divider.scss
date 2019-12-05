@@ -21,14 +21,14 @@
   position: relative;
 }
 .section-divider:before {
-      content: url("savecar_logo.svg"); 
-      position: absolute;
-      width: 3.5rem;
-      height: 3.5rem;
-      top: -2.75rem;
-      left: calc(50% - 1.75rem);
-      padding: .3rem;
-      padding-right: .4rem;
-      border-radius: 100%;
-      background: #FFF;
-    }
+  content: url(""); // savecar_logo.svg <- Url que o JS precisa incluir após localizar o Guincho
+  position: absolute;
+  width: 3.5rem;
+  height: 3.5rem;
+  top: -2.75rem;
+  left: calc(50% - 1.75rem);
+  padding: .3rem;
+  padding-right: .4rem;
+  border-radius: 100%;
+  background: #FFF;
+} 

@@ -9,6 +9,13 @@
   .cards {
     grid-template-columns: 1fr;
   }
+  .navbar-lewagon .navbar-collapse {
+  flex-grow: 0;
+  background: white
+}
+  .nav-link {
+    border-bottom: 2px solid lightgrey
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
