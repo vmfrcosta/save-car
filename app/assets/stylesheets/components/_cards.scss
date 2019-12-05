@@ -30,6 +30,11 @@
   .cards {
     grid-template-columns: 1fr 1fr;
   }
+  .navbar-lewagon {
+  justify-content: space-between;
+  background: white;
+  z-index: 1000;
+}
 }
 
 // Large devices (desktops, 992px and up)
