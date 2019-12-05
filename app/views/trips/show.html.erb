@@ -1,70 +1,98 @@
-<!-- mapa -->
-<div
-  id="map"
-  style="width: 100%;
-  height: 600px;"
-  data-markers="<%= @markers.to_json %>"
-></div>
-<!--  -->
+<div style="position: relative;">
+  <!-- mapa -->
+  <div
+    div id="map" style="height: 100vh;"
+    data-markers="<%= @markers.to_json %>"
+  ></div>
+  <!--  -->
 
-<!-- status da trip (sempre hidden) -->
-<div id="status" hidden><%= @trip.status %></div>
-<!--  -->
+  <!-- status da trip (sempre hidden) -->
+  <div id="status" hidden><%= @trip.status %></div>
+  <!--  -->
 
-<!-- Searching que aparece enquanto nenhum guincho aceitou-->
-<div class="container mt-3">
-  <div class="card align-items-center" id="searching">
-    <h2>Searching <i class="fas fa-spinner"></i></h2>
+  <!-- Searching que aparece enquanto nenhum guincho aceitou-->
+  <div id="trips-info">
+    <div class="px-3" id='trips-new'>
+      <div class="lower-section section-divider">
+          <span class="ouro ouro3 divider-position">
+            <!-- colocar hidden quando encontrar o guincho -->
+            <span class="left"><span class="anim"></span></span>
+            <span class="right"><span class="anim"></span></span>
+          </span>
+      </div>
+
+      <div class="container">          
+        <div class="stats">
+          <ul>
+            <li>
+              <p class="heading">Distância</p>
+              <p class="footing">10,03 Km</p>
+            </li>
+            <li>
+              <p class="heading">Tempo</p>
+              <p class="footing">90 min.</p>
+            </li>
+            <li>
+              <p class="heading"><strong>Valor</strong></p>
+              <p class="footing">R$ 130</p>
+            </li>
+          </ul>
+          <div class="btn">Buscando Guinchos</div>
+        </div>
+      </div>
+
+      </div>
+    </div>
   </div>
-</div>
-<!--  -->
+  <!--  -->
 
-<!-- card com infos do user para aparecer para o guincho -->
-<div class="container mt-3">
-  <div class="card p-3" id="infos-user" hidden>
-    <div class="d-flex justify-content-around align-items-center">
-      <div class="user-name">
-        <h2><%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %></h2>
+  <!-- card com infos do user para aparecer para o guincho -->
+  <div class="container mt-3">
+    <div class="card p-3" id="infos-user" hidden>
+      <div class="d-flex justify-content-around align-items-center">
+        <div class="user-name">
+          <h2><%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %></h2>
+        </div>
+        <div class="car-info">
+          <p><%= "#{@trip.car.brand} #{@trip.car.model}" %></p>
+          <p><%= @trip.car.plate %></p>
+        </div>
+        <p><%= @trip.dest_address %></p>
       </div>
-      <div class="car-info">
-        <p><%= "#{@trip.car.brand} #{@trip.car.model}" %></p>
-        <p><%= @trip.car.plate %></p>
+      <!-- btn para guincho avisar que chegou -->
+      <div class="mt-3" id="arrived-btn">
+        <%= simple_form_for @trip, remote: true do |f| %>
+          <%= f.input :status, as: :hidden, input_html: { value: 'arrived' } %>
+          <%= f.button :submit, 'Cheguei ao destino', class: 'btn btn-primary btn-block' %>
+        <% end %>
       </div>
-      <p><%= @trip.dest_address %></p>
+      <!--  -->
+      
+      <!-- btn para guincho avisar que terminou o serviço -->
+      <div class="mt-3" id="delivered-btn" hidden>
+        <%= simple_form_for @trip do |f| %>
+          <%= f.input :status, as: :hidden, input_html: { value: 'delivered' } %>
+          <%= f.button :submit, 'Carro entregue ao destino correto', class: 'btn btn-success btn-block' %>
+        <% end %>
+      </div>
+      <!--  -->
     </div>
-    <!-- btn para guincho avisar que chegou -->
-    <div class="mt-3" id="arrived-btn">
-      <%= simple_form_for @trip, remote: true do |f| %>
-        <%= f.input :status, as: :hidden, input_html: { value: 'arrived' } %>
-        <%= f.button :submit, 'Cheguei ao destino', class: 'btn btn-primary btn-block' %>
-      <% end %>
-    </div>
-    <!--  -->
-    
-    <!-- btn para guincho avisar que terminou o serviço -->
-    <div class="mt-3" id="delivered-btn" hidden>
-      <%= simple_form_for @trip do |f| %>
-        <%= f.input :status, as: :hidden, input_html: { value: 'delivered' } %>
-        <%= f.button :submit, 'Carro entregue ao destino correto', class: 'btn btn-success btn-block' %>
-      <% end %>
-    </div>
-    <!--  -->
   </div>
-</div>
-<!--  -->
+  <!--  -->
 
-<!-- card com infos do guincho para aparecer para o user -->
-<div class="container mt-3">
-  <div class="card" id="infos-winch" hidden>
-    <div class="d-flex justify-content-around align-items-center">
-      <div class="user-name">
-        <h2 id="winch-user-name"> winch.user.first_name winch.user.first_name </h2>
+  <!-- card com infos do guincho para aparecer para o user -->
+  <div class="container mt-3">
+    <div class="card" id="infos-winch" hidden>
+      <div class="d-flex justify-content-around align-items-center">
+        <div class="user-name">
+          <h2 id="winch-user-name"> winch.user.first_name winch.user.first_name </h2>
+        </div>
+        <div class="winch-info">
+          <p id="winch-plate">winch plate</p>
+        </div>
       </div>
-      <div class="winch-info">
-        <p id="winch-plate">winch plate</p>
-      </div>
+      <%= link_to 'delivered', delivered_trip_path(@trip), style: 'display: none', id: 'delivered-btn' %>
     </div>
-    <%= link_to 'delivered', delivered_trip_path(@trip), style: 'display: none', id: 'delivered-btn' %>
   </div>
 </div>
 <!--  -->
