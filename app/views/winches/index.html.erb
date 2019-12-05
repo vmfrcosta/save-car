@@ -1,35 +1,34 @@
-<h1>Pages#home</h1>
-<p>Guincho Index</p>
-
 <div class="bg">
   <div class="container">
     <div class="text-primary">
-
       <div class="cards">
         <% @winches.each do |winch| %>
           <% if winch.visible %>
             <div class="card-trip m-2">
-              <%= link_to user_winch_path(current_user, winch), class:"a border-0" do %>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj85G1Zl_5aj8CG-FYz79H0nsLghX4IkVcJJ5y80yyTkpn6cXk&s"/>
-            <% end %>
-            <div class="card-trip-infos">
-              <div>
-                <h4 class="card-title block-with-text mb-2"><%= winch.model %> </h4>
-                <p class="card-text mr-2"><%= winch.brand %> </p>
-                <div class="d-flex justify-content-between" style="width: 100%">
-                  <h2 class="card-trip-pricing text-secondary mt-2"><%= winch.plate %></h2>
-                  <%= link_to user_winch_path(current_user, winch), method: 'delete', :data => {:confirm => "Tem Certeza?"} do %>
-                    <i class="icon-trash"></i>
-                  <% end %>
+              <%= link_to user_winch_path(current_user, winch), class:"a border-0 image-hoveffect-zoomlong" do %>
+                <div class="card-category" >
+                  <%= image_tag "guincho2.jpg"  %>
+                </div>
+              <% end %>
+              <div class="card-trip-infos">
+                <div>
+                  <h4 class="card-title block-with-text mb-2"><%= winch.model %> </h4>
+                  <p class="card-text mr-2"><%= winch.brand %> </p>
+                  <div class="d-flex justify-content-between" style="width: 100%">
+                    <h2 class="card-trip-pricing text-secondary"><%= winch.plate %></h2>
+                    <%= link_to user_winch_path(current_user, winch), method: 'delete', :data => {:confirm => "You Sure?"} do %>
+                      <i class="icon-trash"></i>
+                    <% end %>
+                  </div>
                 </div>
               </div>
-              <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered"/>
             </div>
-          </div>
+          <% end %>
         <% end %>
-      <% end %>
       </div>
-      <%= link_to 'Novo Guincho', new_user_winch_path(current_user), class:"btn btn-primary" %>
     </div>
   </div>
 </div>
+
+
+
