@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
   # skip_before_action :authenticate_user!, only: :new
   before_action :set_user
-  before_action :set_trip, only: [:show, :edit, :update, :destroy, :update_win_location]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy, :update_win_location, :delivered]
 
   def index
     @trip = Trip.all
@@ -96,7 +96,11 @@ class TripsController < ApplicationController
   end
 
   def delivered
-
+    #markers for map
+    @markers = [
+      {lat: @trip.car_lat, lng: @trip.car_long},
+      {lat: @trip.dest_lat, lng: @trip.dest_long}
+    ]
   end
 
   private

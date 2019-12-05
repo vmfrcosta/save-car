@@ -1,0 +1,43 @@
+<div class="container mt-3">
+	<h1>Resumo da solicitação</h1>
+	<div class="main-infos d-flex flex-row justify-content-around card p-3">
+		<div
+		  id="map"
+		  style="width: 50%;
+		  height: 300px;"
+		  data-markers="<%= @markers.to_json %>"
+		  class='align-items-center'
+		></div>
+		<div class="trip-infos w-50 mx-3">
+			<div class="d-flex flex-column align-items-center mb-3">
+				<h2 class="mb-2">Informações do motorista</h2>
+				<div class="d-flex flex-row justify-content-between align-items-center w-75">
+					<h2 id='trip-distance'><%= @trip.total_distance.ceil %></h2>
+					<div id="car-info" class="d-flex justify-content-around align-items-center flex-column">
+						<h2><%= @trip.total_distance.ceil * @trip.total_price %></h2>
+					</div>
+				</div>
+			</div>
+		<div class="trip-infos w-50 mx-3">
+			<div class="user-info d-flex flex-column align-items-center mb-3">
+				<h2 class="mb-2">Informações do motorista</h2>
+				<div class="d-flex flex-row justify-content-between align-items-center w-75">
+					<h2 id='user-name'><%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %></h2>
+					<div id="car-info" class="d-flex justify-content-around align-items-center flex-column">
+						<h2><%= "#{@trip.car.brand} #{@trip.car.model}" %></h2>
+						<h2><%= @trip.car.plate %></h2>
+					</div>
+				</div>
+			</div>
+			<div class="winch-info d-flex flex-column align-items-center mb-3">
+				<h2 class="mb-2">Informações do guincho</h2>
+				<div class="d-flex flex-row justify-content-between align-items-center w-75">
+					<h2 id='winch-driver-name'><%= "#{@trip.winch.user.first_name} #{@trip.winch.user.last_name}" %></h2>
+					<div id="car-info" class="d-flex justify-content-around align-items-center flex-column">
+						<h2><%= @trip.car.plate %></h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

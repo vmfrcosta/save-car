@@ -4,7 +4,7 @@
 
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <p class="h3 mt-5 pt-5 mb-5" style="margin-bottom: 3vh">Por favor, faça o seu <strong>login</strong> abaixo!</p>
-
+        <%= f.error_notification %>
         <%= f.input :email, label_html: { class: 'text-secondary font-weight-bolder ml-4'},
                     required: false,
                     autofocus: true,

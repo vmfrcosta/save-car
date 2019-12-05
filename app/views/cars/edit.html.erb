@@ -1,28 +1,20 @@
-<div class="bg">
-  <div class="container mt-3">
-    <div class="row align-items-center">
-      <div class="col-sm-12 offset-md-3 col-md-6 text-primary">
-        <div class="container">
-          <h2 class="mt-5 pt-5 mb-3 ml-4"><strong>Editar meu <%= @car.brand %> - <%= @car.model %></strong></h2>
+<div class="container">
+  <div class="align-items-center">
+    <div class="col-sm-12 offset-md-3 col-md-6 text-primary">
 
-            <%= simple_form_for([current_user, @car]) do |f| %>
-              <%= f.error_notification %>
-              <%= f.input :brand, collection: @brands, label_html: { class: 'font-weight-bolder ml-4 text-black-50 '},
-                          input_html: { class: "rounded-pill pl-4 border-0 select2", id: 'brand-select' } %>
-              <div id="form-to-change">
-              <%= f.input :model, collection: @models, label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
-                          input_html: { class: "rounded-pill pl-4 border-0 select2" } %>
-              </div>
-              <%= f.input :car_type, collection: ["Cupe", "Crossover","Seda", "Hatch", "Picape", "Perua", "SUV"], label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
-                          input_html: { class: "rounded-pill pl-4 border-0 select2 " } %>
-
-              <%= f.input :plate, label_html: { class: 'font-weight-bolder ml-4 text-black-50'},
-                          input_html: { class: "rounded-pill pl-4 border-0", onkeyup:"this.value = this.value.toUpperCase();" } %>
-
-              <%= f.button :submit, class: "btn-secondary btn-block rounded-pill"  %>
-            <% end %>
-        </div>
-      </div>
+      <%= simple_form_for([current_user, @car]) do |f| %>
+      <p class="h3 mt-2 pt-5 mb-5" style="margin-bottom: 3vh"><strong>Altere</strong> as informações do seu carro:</p>
+        <%= f.error_notification %>
+        <%= f.input :brand, collection: @brands, label_html: { class: 'text-secondary font-weight-bolder ml-4'},
+                    input_html: { class: "select2", id: 'brand-select' }, label: 'Marca' %>
+        <%= f.input :model, collection: @models, label_html: { class: 'text-secondary font-weight-bolder ml-4'},
+                    input_html: { class: "select2" }, label: 'Modelo' %>
+        <%= f.input :car_type, collection: ["Cupe", "Crossover","Seda", "Hatch", "Picape", "Perua", "SUV"], label_html: { class: 'text-secondary font-weight-bolder ml-4'},
+                    input_html: { class: "select2 " }, label: 'Tipo de carro' %>
+        <%= f.input :plate, label_html: { class: 'text-secondary font-weight-bolder ml-4'},
+                    input_html: { class: "rounded-pill pl-4 border-0", onkeyup:"this.value = this.value.toUpperCase();" }, label: 'Placa' %>
+        <%= f.button :submit, "Atualizar" , class: "mt-3 btn-primary btn-block rounded-pill"  %>
+      <% end %>
     </div>
   </div>
 </div>
