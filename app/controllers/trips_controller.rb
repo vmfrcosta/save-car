@@ -41,13 +41,13 @@ class TripsController < ApplicationController
         @requests << TripRequest.create(winch: winch, trip: @trip)
       end
       @requests.each do |request|
-        @client = Twilio::REST::Client.new(ENV.fetch('TWILIO_ACCOUNT_SID'), ENV.fecth('TWILIO_AUTH_TOKEN'))
-        message = @client.messages.create(
-                             body: "Você tem uma nova solicitação de serviço! Para ver as informações e aceitá-la, entre em www.savecar.com/requests/#{@id}",
-                             from: '+14433032789',
-                             to: '+55996125717'
-                           )
-        puts message.sid
+        # @client = Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
+        # message = @client.messages.create(
+        #                      body: "Você tem uma nova solicitação de serviço! Para ver as informações e aceitá-la, entre em www.savecar.com/requests/#{@id}",
+        #                      from: '+14433032789',
+        #                      to: '+5511996125717'
+        #                    )
+        # puts message.sid
       end
       redirect_to trip_room_path(@trip)
     else

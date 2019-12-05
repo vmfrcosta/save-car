@@ -4,8 +4,8 @@ const setDistance = (response, status) => {
 	if (status === 'OK') {
 		document.querySelector('#total-distance').value = response['rows'][0]['elements'][0]['distance']['value'];
 		document.querySelector('#total-price').value = response['rows'][0]['elements'][0]['distance']['value'] * 5;
-		// document.querySelector('#confirm-btn').hidden = false;
-		// document.querySelector('#search-btn').hidden = true;
+		document.querySelector('#confirm-btn').hidden = false;
+		document.querySelector('#search-btn').hidden = true;
 
 		const dest = document.querySelector('#dest-address');
 		const price = document.querySelector('#price');
@@ -21,11 +21,11 @@ const setDistance = (response, status) => {
     	}
     });
 
-		// dest.hidden = true;
+		dest.hidden = true;
 		price.innerText = response['rows'][0]['elements'][0]['distance']['value'] * 5;
 		distance.innerText = response['rows'][0]['elements'][0]['distance']['value'];
-		// price.hidden = false
-		// distance.hidden = false
+		price.hidden = false
+		distance.hidden = false
 	}
 }
 
