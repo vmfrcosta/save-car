@@ -17,18 +17,19 @@
 				<%= f.input :car_lat, as: :hidden, input_html: { id: 'car-lat' }, label: false %>
 				<%= f.input :car_long, as: :hidden, input_html: { id: 'car-long' }, label: false %>
 				<%= f.input :car, as: :hidden, input_html: { value: current_user.cars.first }, label: false %>
-
+				<%= f.input :total_price, as: :hidden, input_html: { id: 'total-price' } %>
+				<%= f.input :total_distance, as: :hidden, input_html: { id: 'total-distance' } %>
 				<%= f.button :submit, 'Buscar guincho', class: 'mt-3 btn-primary btn-block rounded-pill', id: 'search-btn' %>
 
 				<div class="container mt-3 d-flex flex-column justify-content-around align-items-center" id='searching-winches' hidden>
 					<div class="trip-infos mt-3 w-75">
 						<div class="card-trip d-flex flex-column align-items-center">
 							<!-- <h3 id='winch-user-name'>Searching</h3> -->
-							<p id="winch-plate" hidden>Plate</p>
 							<p id="distance" hidden>Total distance</p>
 							<p id="price" hidden>Total price</p>
 						</div>
 					</div>
+					<%= f.button :submit, 'Confirmar', class: 'mt-3 btn-primary btn-block rounded-pill', id: 'confirm-btn', hidden: true %>
 				</div>
 			<% end %>
 		</div>
