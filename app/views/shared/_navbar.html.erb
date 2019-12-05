@@ -11,7 +11,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
-
+<!-- abc -->
         <% if current_user.winch %>
           <%= link_to "Meus Guinchos", user_winches_path(current_user), class: "nav-link text-secondary mr-2" unless current_user.winches.empty?%>
           <%= link_to "Novo Guincho", new_user_winch_path(current_user), class: "nav-link text-secondary mr-2" %>
