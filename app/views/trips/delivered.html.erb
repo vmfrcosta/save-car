@@ -1,43 +1,78 @@
-<div class="container mt-3">
+<div style="position: relative;">
+	<div
+	  div id="map" style="height: 100vh;"
+	  data-markers="<%= @markers.to_json %>"
+	></div>
 	<h1>Resumo da solicitação</h1>
-	<div class="main-infos d-flex flex-row justify-content-around card p-3">
-		<div
-		  id="map"
-		  style="width: 50%;
-		  height: 300px;"
-		  data-markers="<%= @markers.to_json %>"
-		  class='align-items-center'
-		></div>
-		<div class="trip-infos w-50 mx-3">
-			<div class="d-flex flex-column align-items-center mb-3">
-				<h2 class="mb-2">Informações do motorista</h2>
-				<div class="d-flex flex-row justify-content-between align-items-center w-75">
-					<h2 id='trip-distance'><%= @trip.total_distance.ceil %></h2>
-					<div id="car-info" class="d-flex justify-content-around align-items-center flex-column">
-						<h2><%= @trip.total_distance.ceil * @trip.total_price %></h2>
-					</div>
-				</div>
-			</div>
-		<div class="trip-infos w-50 mx-3">
-			<div class="user-info d-flex flex-column align-items-center mb-3">
-				<h2 class="mb-2">Informações do motorista</h2>
-				<div class="d-flex flex-row justify-content-between align-items-center w-75">
-					<h2 id='user-name'><%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %></h2>
-					<div id="car-info" class="d-flex justify-content-around align-items-center flex-column">
-						<h2><%= "#{@trip.car.brand} #{@trip.car.model}" %></h2>
-						<h2><%= @trip.car.plate %></h2>
-					</div>
-				</div>
-			</div>
-			<div class="winch-info d-flex flex-column align-items-center mb-3">
-				<h2 class="mb-2">Informações do guincho</h2>
-				<div class="d-flex flex-row justify-content-between align-items-center w-75">
-					<h2 id='winch-driver-name'><%= "#{@trip.winch.user.first_name} #{@trip.winch.user.last_name}" %></h2>
-					<div id="car-info" class="d-flex justify-content-around align-items-center flex-column">
-						<h2><%= @trip.car.plate %></h2>
-					</div>
-				</div>
-			</div>
-		</div>
+  <div class="px-3" id='trips-new'>
+
+    <div class="lower-section section-divider">
+      <!-- colocar hidden quando encontrar o guincho! Verificar _divider.scss linha 24 -->
+      <span class="ouro ouro3 divider-position" id='rotating-gif'>
+        <span class="left"><span class="anim"></span></span>
+        <span class="right"><span class="anim"></span></span>
+      </span>
+      <!--  -->
+    </div>
+
+    <div class="container" id="searching">          
+      <div class="stats">
+        <ul>
+          <li>
+            <p class="heading">Distância</p>
+            <p class="footing"><%= @trip.total_distance.ceil %></p>
+          </li>
+          <li>
+            <p class="heading"><strong>Valor</strong></p>
+            <p class="footing">R$ <%= @trip.total_price %></p>
+          </li>
+        </ul>
+    </div>
+    <div class="stats" id="infos-winch">
+      <ul>
+        <li>
+          <p class="heading">Cliente</p>
+          <p class="footing" id="winch-user-name"> <%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %> </p>
+        </li>
+        <li>
+          <p class="heading">Veículo</p>
+          <p class="footing" id="time"><%= "#{@trip.car.brand} #{@trip.car.model}" %></p>
+        </li>
+        <li>
+          <p class="heading"><strong>Placa</strong></p>
+          <p class="footing" id="winch-plate"><%= @trip.car.plate %></p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Cards com as informações do usuário -->
+    <div class="d-flex align-items-center justify-content-center btn-block rounded-pill">
+      <p class="h6 mr-2">Atendimento por</p>
+      <p class="h6"><%= "#{@trip.winch.user.first_name} #{@trip.winch.user.last_name}" %></p>
+    </div>
+
+    <div class="stats" id="infos-user" hidden>
+      <ul>
+        <li>
+          <p class="heading">Veículo</p>
+          <p class="footing"> <%= "#{@trip.car.model}" %> </p>
+        </li>
+        <li>
+          <p class="heading">Endereço</p>
+          <p class="footing" id="time"> <%= @trip.dest_address %></p>
+        </li>
+        <li>
+          <p class="heading"><strong>Placa</strong></p>
+          <p class="footing" id="winch-plate">
+            <% if @trip.winch == nil %>
+              Winch Plate
+            <% else %>
+              <%= @trip.winch.plate %>
+            <% end %>
+          </p>
+        </li>
+      </ul>
+    </div>
+<!-- um comentario do nada -->
+	  </div>
 	</div>
-</div>
