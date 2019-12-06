@@ -6,7 +6,7 @@ class TripsController < ApplicationController
   def index
     @trip = Trip.all
   end
-
+# nothing to see here
   def show
     # action cable vai trazer o guincho que aceitar a corrida
     @requests = @trip.trip_requests
