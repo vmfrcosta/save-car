@@ -21,7 +21,7 @@
   position: relative;
 }
 .section-divider:before {
-  content: url(""); // savecar_logo.svg <- Url que o JS precisa incluir após localizar o Guincho
+  content: url("savecar_logo.svg"); // savecar_logo.svg <- Url que o JS precisa incluir após localizar o Guincho
   position: absolute;
   width: 3.5rem;
   height: 3.5rem;
