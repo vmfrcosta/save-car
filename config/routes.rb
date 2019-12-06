@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :autos, only: [:index] , defaults: {format: :json}
   resources :guinchos, only: [:index] , defaults: {format: :json}
 
-  root to: 'trips#new'
+  root to: 'pages#home'
 
   resources :users do
     resources :winches
