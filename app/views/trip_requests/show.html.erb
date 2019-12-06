@@ -1,19 +1,46 @@
-<div class="container">
-	<h1>Solicitação de <%= "#{@request.trip.user.first_name} #{@request.trip.user.last_name}" %></h1>
-	<div class="map w-100" style="background-color: black; height: 55vh"></div>
-	<div class="car-info d-flex justify-content-around">
-		<p>car owner name</p>
-		<p>car brand and model</p>
-		<p>car plate</p>
+<div style="position: relative;">
+	<div id="map" style="height: 100vh;" data-markers="<%= @markers.to_json %>"></div>
+
+	<!-- Card com as infos do cliente e da corrida -->
+	<div class="container bg-white">
+
+		<div class="lower-section section-divider"></div>
+		<div class="d-flex m-0 align-items-center justify-content-center">
+	  	<p class="h6 mr-2">Solicitação de</p>
+			<p class="h4"><%= "#{@request.trip.user.first_name} #{@request.trip.user.last_name}" %></p>
+		</div>
+
+    <div class="stats">
+			<div class="container p-0" id="trip-info-card">       
+	      <ul>
+	        <li>
+	          <p class="heading" >Veículo</p>
+	          <p class="footing" id="car-brand-model">Ford Focus</p>
+	        </li>
+	        <li>
+	          <p class="heading">Tipo</p>
+	          <p class="footing">Hatch</p>
+	        </li>	        
+	        <li>
+	          <p class="heading">Valor</p>
+	          <p class="footing">R$ 84</p>
+	        </li>
+	        <li>
+	          <p class="heading"><strong>Placa</strong></p>
+	          <p class="footing" id="price">KDD-2121</p>
+	        </li>
+	      </ul>
+	    </div>
+	  </div>
+
+		<%= simple_form_for @trip do |f| %>
+			<%= f.input :winch_id, as: :hidden, input_html: { value: @request.winch.id } %>
+			<%= f.input :win_init_lat, as: :hidden, input_html: { value: @request.winch.win_lat } %>
+			<%= f.input :win_init_long, as: :hidden, input_html: { value: @request.winch.win_long } %>
+			<%= f.button :submit, 'Aceitar solicitação', class: 'info-btn btn-sucess' %>
+		<% end %>
+
 	</div>
-	<div class="request-info d-flex justify-content-around">
-		<p>distance</p>
-		<p>price</p>
-	</div>
-	<%= simple_form_for @trip do |f| %>
-		<%= f.input :winch_id, as: :hidden, input_html: { value: @request.winch.id } %>
-		<%= f.input :win_init_lat, as: :hidden, input_html: { value: @request.winch.win_lat } %>
-		<%= f.input :win_init_long, as: :hidden, input_html: { value: @request.winch.win_long } %>
-		<%= f.button :submit, 'Aceitar solicitação', class: 'btn btn-success btn-block' %>
-	<% end %>
+  <!--  -->
+
 </div>
