@@ -10,7 +10,7 @@ const updateNewMap = (newLat, newLng) => {
 	console.log(lng)
 	markers.push({lat: lat, lng: lng})
 	map.dataset.markers = JSON.stringify(markers)
-	// updateRoutes()
+	updateRoutes()
 }
 
 export { updateNewMap }
