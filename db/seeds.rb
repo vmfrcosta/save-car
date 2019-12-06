@@ -1,45 +1,45 @@
-require 'csv'
+# require 'csv'
 
-# seed brands and models
-Auto.destroy_all
-puts 'Autos destroyed'
-Guincho.destroy_all
-puts 'Guinchos destroyed'
-Car.destroy_all
-puts 'Cars destroyed'
-Winch.destroy_all
-puts 'Winches destroyed'
-User.destroy_all
-puts 'Users destroyed'
-Photo.destroy_all
-puts 'Photos destroyed'
-Review.destroy_all
-puts 'Reviews destroyed'
+# # seed brands and models
+# Auto.destroy_all
+# puts 'Autos destroyed'
+# Guincho.destroy_all
+# puts 'Guinchos destroyed'
+# Car.destroy_all
+# puts 'Cars destroyed'
+# Winch.destroy_all
+# puts 'Winches destroyed'
+# User.destroy_all
+# puts 'Users destroyed'
+# Photo.destroy_all
+# puts 'Photos destroyed'
+# Review.destroy_all
+# puts 'Reviews destroyed'
 
-filepath = 'db/marcas.csv'
-marcas = {}
-CSV.foreach(filepath, headers:true) do |row|
-  marcas[row[1]] = row[2]
-end
-puts 'marcas'
-filepath2 = 'db/modelos.csv'
-CSV.foreach(filepath2, headers:true) do |row|
-  auto = Auto.new()
-  row = row.to_s.split(";")
-  auto.model = row[3].gsub('""', '')
-  auto.brand = marcas[row[1].gsub(/\W/,'')]
-  auto.save
-  puts "#{auto.model} saved on db"
-end
-filepath = 'db/guinchos.csv'
-marcas = {}
-CSV.foreach(filepath) do |row|
-  guincho = Guincho.new()
-  guincho.brand = row[0]
-  guincho.model = row[1]
-  guincho.save
-  puts "#{guincho.model} saved on DB"
-end
+# filepath = 'db/marcas.csv'
+# marcas = {}
+# CSV.foreach(filepath, headers:true) do |row|
+#   marcas[row[1]] = row[2]
+# end
+# puts 'marcas'
+# filepath2 = 'db/modelos.csv'
+# CSV.foreach(filepath2, headers:true) do |row|
+#   auto = Auto.new()
+#   row = row.to_s.split(";")
+#   auto.model = row[3].gsub('""', '')
+#   auto.brand = marcas[row[1].gsub(/\W/,'')]
+#   auto.save
+#   puts "#{auto.model} saved on db"
+# end
+# filepath = 'db/guinchos.csv'
+# marcas = {}
+# CSV.foreach(filepath) do |row|
+#   guincho = Guincho.new()
+#   guincho.brand = row[0]
+#   guincho.model = row[1]
+#   guincho.save
+#   puts "#{guincho.model} saved on DB"
+# end
 
 # seed users (first_name, last_name, email, password, winch, visible, photo)
 
