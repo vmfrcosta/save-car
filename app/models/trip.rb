@@ -1,15 +1,14 @@
 class Trip < ApplicationRecord
   extend Geocoder::Model::ActiveRecord
   # after_create :broadcast_message
-  has_many :photos, dependent: :destroy
-  has_many :trip_requests
+  has_many :trip_requests, dependent: :destroy
 
   belongs_to :winch, optional: true
   belongs_to :car, optional: true
   belongs_to :user, optional: true
-  
+
   geocoded_by :geo_address
-  
+
   # validates :description, presence: true
   # validates :status, presence: true
   # validates :win_init_lat, presence: true

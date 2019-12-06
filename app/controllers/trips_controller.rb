@@ -127,7 +127,7 @@ class TripsController < ApplicationController
   def set_winch
     @winch = Winch.find(params[:trip][:winch_id])
   end
-  
+
   def set_user
     @user = current_user
   end
