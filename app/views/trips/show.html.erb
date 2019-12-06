@@ -11,6 +11,8 @@
   <div id="status" hidden><%= @trip.status %></div>
   <div id="car-lat" hidden><%= @trip.car_lat %></div>
   <div id="car-long" hidden><%= @trip.car_long %></div>
+  <div id="win-lat" hidden></div>
+  <div id="win-long" hidden></div>
   <!--  -->
 
   <!-- Searching que aparece enquanto nenhum guincho aceitou-->
@@ -104,7 +106,6 @@
     App['trip_<%= @trip.id %>'] = App.cable.subscriptions.create(
       { channel: 'TripsChannel', trip_id: <%= @trip.id %> },
       { received: (data) => {
-          // console.log(data);
           document.querySelector('#rotating-gif').hidden = true
           document.querySelector('#searching').hidden = true
 
@@ -118,11 +119,12 @@
             status.innerText = data['locals']['status']
             document.querySelector('#winch-user-name').innerText = data['winch']['name']
             document.querySelector('#winch-plate').innerText = data['winch']['plate']
+          console.log(data);
             updateUserMap(data['locals']['lat'], data['locals']['lng'], data['locals']['status'])
 
             
             if (data['locals']['status'] === 'delivered') {
-              console.log(data['locals']['status'])
+              // console.log(data['locals']['status'])
               if (confirm('O guincheiro finalizou o serviço!')) {
                 window.location.href = "<%= delivered_trip_path(@trip) %>"
               } else {
@@ -144,16 +146,17 @@
         const name = document.querySelector('#winch-user-name').innerText
         const plate = document.querySelector('#winch-plate').innerText
         const status = document.querySelector('#status').innerText
-        console.log(name)
-        console.log(plate)
         const url = "<%= trip_win_loc_path(@trip.id) %>";
-        if (document.querySelector('#status').innerText === 'on the way') {
+        
+        console.log(markers.length === 3)
+        if (markers.length === 3) {
           fetch(`${url}?lat=${markers[2]['lat']}&lng=${markers[2]['lng']}&status=${status}&name=${name}&plate=${plate}`);
         } else {
           fetch(`${url}?lat=${markers[1]['lat']}&lng=${markers[1]['lng']}&status=${status}&name=${name}&plate=${plate}`);
+
         }
 
-        console.log("info sent");
+        // console.log("info sent");
       }, 10000);
     <% end %>
 
