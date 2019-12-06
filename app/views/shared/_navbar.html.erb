@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon <%= current_page?(root_path) ? 'position-absolute': ""%>">
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon <%= current_page?(root_path) || current_page?(new_trip_path) ? 'position-absolute': ""%>">
   <div class="container">
       <%= link_to winches_path, class: "navbar-brand" do %>
     <%= image_tag "logo.png" %>
@@ -16,6 +16,7 @@
           <%= link_to "Meus Guinchos", user_winches_path(current_user), class: "nav-link text-secondary mr-2" unless current_user.winches.empty?%>
           <%= link_to "Novo Guincho", new_user_winch_path(current_user), class: "nav-link text-secondary mr-2" %>
           <%= link_to "Minhas Viagens", trips_path, class: "nav-link text-secondary mr-2" %>
+          <%= link_to "Nova Viagem", root_path, class: "nav-link text-secondary mr-2" %>
           <%= link_to "Editar meu perfil", edit_user_registration_path(current_user), class: "nav-link text-secondary mr-2" %>
           <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link text-secondary mr-2" %>
             <% if current_user.photo.present? %>
@@ -28,6 +29,7 @@
           <%= link_to "Meus Carros", user_cars_path(current_user), class: "nav-link text-secondary mr-2" unless current_user.cars.empty?%>
           <%= link_to 'Novo Carro', new_user_car_path(current_user, @car), class: "nav-link text-secondary mr-2" %>
           <%= link_to "Meus Sinistros", trips_path, class: "nav-link text-secondary mr-2" %>
+          <%= link_to "Novo Sinistro", new_trip_path, class: "nav-link text-secondary mr-2" %>
           <%= link_to "Editar meu perfil", edit_user_registration_path(current_user), class: "nav-link text-secondary mr-2" %>
           <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link text-secondary mr-2" %>
           <% if current_user.photo.present? %>
