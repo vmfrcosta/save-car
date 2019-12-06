@@ -19,8 +19,10 @@ initSelect2Winches();
 
 scrollLastMessageIntoView();
 
-if (document.querySelector('#trips-new')) {
+if (document.querySelector('#confirm-btn')) {
 	getCarLocation();
 }
 
-confirmInfo()
+if (document.querySelector('#confirm-btn')) {
+	confirmInfo()
+}

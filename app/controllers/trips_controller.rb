@@ -14,6 +14,8 @@ class TripsController < ApplicationController
       {lat: @trip.car_lat, lng: @trip.car_long},
       {lat: @trip.dest_lat, lng: @trip.dest_long}
     ]
+    @price = (@trip.total_price / 100).round(2)
+    @distance = (@trip.total_distance / 1000).round(1)
   end
 
   def new
