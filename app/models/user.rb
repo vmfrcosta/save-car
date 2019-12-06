@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :cars, dependent: :destroy
   has_many :trips, dependent: :destroy
   has_many :photos
+  has_many :trip_requests
 
   mount_uploader :photo, PhotoUploader
 
