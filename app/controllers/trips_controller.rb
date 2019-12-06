@@ -119,7 +119,7 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:win_init_long, :win_init_lat, :car_lat, :car_long, :car_address, :dest_address, :winch_id, :status)
+    params.require(:trip).permit(:total_price, :total_distance, :win_init_long, :win_init_lat, :car_lat, :car_long, :car_address, :dest_address, :winch_id, :status)
   end
 
   def set_winch

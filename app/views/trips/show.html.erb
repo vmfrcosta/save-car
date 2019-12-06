@@ -9,6 +9,8 @@
 
   <!-- status da trip (sempre hidden) -->
   <div id="status" hidden><%= @trip.status %></div>
+  <div id="car-lat" hidden><%= @trip.car_lat %></div>
+  <div id="car-long" hidden><%= @trip.car_long %></div>
   <!--  -->
 
   <!-- Searching que aparece enquanto nenhum guincho aceitou-->
@@ -17,7 +19,7 @@
 
       <div class="lower-section section-divider">
         <!-- colocar hidden quando encontrar o guincho! Verificar _divider.scss linha 24 -->
-        <span class="ouro ouro3 divider-position">
+        <span class="ouro ouro3 divider-position" id='rotating-gif'>
           <span class="left"><span class="anim"></span></span>
           <span class="right"><span class="anim"></span></span>
         </span>
@@ -29,18 +31,18 @@
           <ul>
             <li>
               <p class="heading">Distância</p>
-              <p class="footing">10,03 Km</p>
+              <p class="footing"><%= @trip.total_distance  %></p>
             </li>
             <li>
               <p class="heading">Tempo</p>
-              <p class="footing">90 min.</p>
+              <p class="footing">Calculando...</p>
             </li>
             <li>
               <p class="heading"><strong>Valor</strong></p>
-              <p class="footing">R$ 130</p>
+              <p class="footing">R$ <%= @trip.total_price %></p>
             </li>
           </ul>
-          <div class="info-btn">Buscando Guinchos</div>
+          <div class="info-btn" id="searching">Buscando Guinchos</div>
         </div>
       </div>
 
@@ -49,7 +51,7 @@
   <!--  -->
 
   <!-- card com infos do guincho para aparecer para o user -->
-  <div class="container" hidden>          
+  <div class="container" id='infos-winch' hidden>          
     <div class="stats">
 
       <ul>
@@ -117,7 +119,8 @@
     App['trip_<%= @trip.id %>'] = App.cable.subscriptions.create(
       { channel: 'TripsChannel', trip_id: <%= @trip.id %> },
       { received: (data) => {
-          console.log(data);
+          // console.log(data);
+          document.querySelector('#rotating-gif').hidden = true
           document.querySelector('#searching').hidden = true
 
           <% if current_user == @trip.user %>
