@@ -4,7 +4,7 @@ const setDistance = (response, status) => {
 	if (status === 'OK') {
 		document.querySelector('#total-distance').value = response['rows'][0]['elements'][0]['distance']['value'];
 		document.querySelector('#total-price').value = response['rows'][0]['elements'][0]['distance']['value'] * 5;
-		document.querySelector('#confirm-btn').hidden = false;
+		document.querySelector('#trip-info-card').hidden = false;
 		document.querySelector('#search-btn').hidden = true;
 
 		const dest = document.querySelector('#dest-address');
@@ -22,15 +22,16 @@ const setDistance = (response, status) => {
     });
 
 		dest.hidden = true;
-		price.innerText = response['rows'][0]['elements'][0]['distance']['value'] * 5;
-		distance.innerText = response['rows'][0]['elements'][0]['distance']['value'];
+		document.querySelector('#duration').innerText = response['rows'][0]['elements'][0]['duration']['text'];
+		price.innerText = `R$ ${((response['rows'][0]['elements'][0]['distance']['value'] * 5) / 100).toFixed(2)}`;
+		distance.innerText = response['rows'][0]['elements'][0]['distance']['text'];
 		price.hidden = false
 		distance.hidden = false
 	}
 }
 
 const confirmInfo = () => {
-	const confirmBtn = document.querySelector('#confirm-btn');
+	const confirmBtn = document.querySelector('#trip-info-card');
 	const searchBtn = document.querySelector('#search-btn');
 	const dest = document.querySelector('#dest-address')
 	const carLat = document.querySelector('#car-lat')

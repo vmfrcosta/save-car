@@ -1,6 +1,6 @@
 const arrivedBtn = document.querySelector('#arrived-btn')
-const deliveredBtn = document.querySelector('#delivered-btn')
-if (arrivedBtn.hidden === false) {
+const deliveredBtn = document.querySelector('#delivered')
+console.log(deliveredBtn)
 	arrivedBtn.hidden = true
 	deliveredBtn.hidden = false
 	navigator.geolocation.getCurrentPosition(updateMap)
@@ -11,4 +11,3 @@ if (arrivedBtn.hidden === false) {
 	document.querySelector('#status').innerText = 'arrived'
 	const url = "<%= trip_win_loc_path(@trip.id) %>";
 	fetch(`${url}?lat=${lat}&lng=${lng}&status=arrived`);
-}
