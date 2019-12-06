@@ -51,8 +51,6 @@ const confirmInfo = () => {
 			destinations: [`${dest.value}`],
 			travelMode: 'DRIVING',
 		}, setDistance);
-		// searchBtn.hidden = true;
-		// confirmBtn.hidden = false;
 	})
 
 }

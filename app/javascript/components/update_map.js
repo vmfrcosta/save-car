@@ -20,7 +20,7 @@ const updateMap = (position) => {
     	const positions = [{"lat": markers[0]['lat'], "lng": markers[0]['lng']}, { "lat": markers[1]['lat'], "lng": markers[1]['lng']}];
     	map.dataset.markers = JSON.stringify(positions);
   	}
-  	// updateRoutes()
+  	updateRoutes()
 }
 
 window.updateMap = updateMap;
