@@ -36,21 +36,21 @@ class TripsController < ApplicationController
     @trip.user = current_user
     @trip.car = @trip.user.cars.first
     # @winches = Winch.near([@trip.car_lat, @trip.car_long], 50, units: :km)
-    @winches = Winch.all
+    @winches = User.find(3).winches.first
     @requests = []
     if @trip.save
-      @winches.each do |winch|
-        @requests << TripRequest.create(winch: winch, trip: @trip)
-      end
-      @requests.each do |request|
+      # @winches.each do |winch|
+        @trip_request = TripRequest.create(winch: @winches, trip: @trip)
+      # end
+      # @requests.each do |request|
         @client = Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
         message = @client.messages.create(
-                             body: "Você tem uma nova solicitação de serviço! Para ver as informações e aceitá-la, entre em www.savecar.com/requests/#{request.id}",
+                             body: "Você tem uma nova solicitação de serviço! Para ver as informações e aceitá-la, entre em www.savecarapp.com/requests/#{@trip_request.id}",
                              from: '+14433032789',
-                             to: '+5511996125717'
+                             to: '+5521971074051'
                            )
         puts message.sid
-      end
+      # end
       redirect_to trip_room_path(@trip)
     else
       raise
