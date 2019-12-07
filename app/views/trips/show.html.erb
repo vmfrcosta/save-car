@@ -93,62 +93,64 @@
             </p>
           </li>
         </ul>
-        <div class="info-btn">Guincho a Caminho</div>
+        <div class="info-btn" id='status-winch'>Guincho a Caminho</div>
         <%= link_to 'delivered', delivered_trip_path(@trip), style: 'display: none', id: 'delivered-btn' %>
       </div>
       <!-- Cards com as informações do usuário -->
-      <div class="d-flex align-items-center justify-content-center">
-        <p class="h6 mr-2">Solicitação de</p>
-        <p class="h4"><%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %></p>
-      </div>
-      <div class="stats" id="infos-user" hidden>
-        <ul>
-          <li>
-            <p class="heading">Veículo</p>
-            <p class="footing"> <%= "#{@trip.car.model}" %> </p>
-          </li>
-          <li>
-            <p class="heading">Endereço</p>
-            <p class="footing" id="time"> <%= @trip.dest_address %></p>
-          </li>
-          <li>
-            <p class="heading"><strong>Placa</strong></p>
-            <p class="footing" id="winch-plate">
-              <% if @trip.winch == nil %>
-                Winch Plate
-              <% else %>
-                <%= @trip.winch.plate %>
-              <% end %>
-            </p>
-          </li>
-        </ul>
-<!--         <div class="d-flex justify-content-around align-items-center">
-          <div class="user-name">
-            <h2><%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %></h2>
-          </div>
-          <div class="car-info">
-            <p><%= "#{@trip.car.brand} #{@trip.car.model}" %></p>
-            <p><%= @trip.car.plate %></p>
-          </div>
-          <p><%= @trip.dest_address %></p>
-        </div> -->
+      <div id="infos-user" hidden>
+        <div class="d-flex align-items-center justify-content-center">
+          <p class="h6 mr-2">Solicitação de</p>
+          <p class="h4"><%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %></p>
+        </div>
+        <div class="stats">
+          <ul>
+            <li>
+              <p class="heading">Veículo</p>
+              <p class="footing"> <%= "#{@trip.car.model}" %> </p>
+            </li>
+            <li>
+              <p class="heading">Endereço</p>
+              <p class="footing" id="time"> <%= @trip.dest_address %></p>
+            </li>
+            <li>
+              <p class="heading"><strong>Placa</strong></p>
+              <p class="footing" id="winch-plate">
+                <% if @trip.winch == nil %>
+                  Winch Plate
+                <% else %>
+                  <%= @trip.winch.plate %>
+                <% end %>
+              </p>
+            </li>
+          </ul>
+  <!--         <div class="d-flex justify-content-around align-items-center">
+            <div class="user-name">
+              <h2><%= "#{@trip.car.user.first_name} #{@trip.car.user.last_name}" %></h2>
+            </div>
+            <div class="car-info">
+              <p><%= "#{@trip.car.brand} #{@trip.car.model}" %></p>
+              <p><%= @trip.car.plate %></p>
+            </div>
+            <p><%= @trip.dest_address %></p>
+          </div> -->
 
-        <!-- btn para guincho avisar que chegou -->
-        <div id="arrived-btn">
-          <%= simple_form_for @trip, remote: true do |f| %>
-            <%= f.input :status, as: :hidden, input_html: { value: 'arrived' } %>
-            <%= f.button :submit, 'Cheguei ao destino', class: ' btn btn-primary btn-block rounded-pill '%>
-          <% end %>
+          <!-- btn para guincho avisar que chegou -->
+          <div id="arrived-btn">
+            <%= simple_form_for @trip, remote: true do |f| %>
+              <%= f.input :status, as: :hidden, input_html: { value: 'arrived' } %>
+              <%= f.button :submit, 'Cheguei ao destino', class: ' btn btn-primary btn-block rounded-pill '%>
+            <% end %>
+          </div>
+          <!--  -->
+          <!-- btn para guincho avisar que terminou o serviço -->
+          <div id='delivered' hidden>
+            <%= simple_form_for @trip do |f| %>
+              <%= f.input :status, as: :hidden, input_html: { value: 'delivered' } %>
+              <%= f.button :submit,'Carro entregue ao destino correto', class: ' btn btn-success btn-block rounded-pill ' %>
+            <% end %>
+          </div>
+          <!--  -->
         </div>
-        <!--  -->
-        <!-- btn para guincho avisar que terminou o serviço -->
-        <div id='delivered' hidden>
-          <%= simple_form_for @trip do |f| %>
-            <%= f.input :status, as: :hidden, input_html: { value: 'delivered' } %>
-            <%= f.button :submit,'Carro entregue ao destino correto', class: ' btn btn-success btn-block rounded-pill ' %>
-          <% end %>
-        </div>
-        <!--  -->
       </div>
       <!-- Cards info user -->
     </div>
@@ -175,7 +177,7 @@
             status.innerText = data['locals']['status']
             document.querySelector('#winch-user-name').innerText = data['winch']['name']
             document.querySelector('#winch-plate').innerText = data['winch']['plate']
-          console.log(data);
+          // console.log(data);
             updateUserMap(data['locals']['lat'], data['locals']['lng'], data['locals']['status'])
 
             
@@ -198,7 +200,7 @@
         navigator.geolocation.getCurrentPosition(updateMap)
         const markers = eval(document.querySelector('#map').dataset.markers);
         const hidden = document.querySelector('#arrived-btn').hidden;
-        console.log(document.querySelector('#status').innerText)
+        // console.log(document.querySelector('#status').innerText)
         const name = document.querySelector('#winch-user-name').innerText
         const plate = document.querySelector('#winch-plate').innerText
         const status = document.querySelector('#status').innerText
@@ -207,7 +209,7 @@
         console.log(markers.length === 3)
         if (markers.length === 3) {
           fetch(`${url}?lat=${markers[2]['lat']}&lng=${markers[2]['lng']}&status=${status}&name=${name}&plate=${plate}`);
-        } else {
+        } else if (status === 'arrived'){
           fetch(`${url}?lat=${markers[1]['lat']}&lng=${markers[1]['lng']}&status=${status}&name=${name}&plate=${plate}`);
 
         }

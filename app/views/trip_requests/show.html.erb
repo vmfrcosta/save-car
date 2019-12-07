@@ -10,7 +10,7 @@
 			<p class="h4"><%= "#{@request.trip.user.first_name} #{@request.trip.user.last_name}" %></p>
 		</div>
 
-    <div class="stats">
+    <div class="stats" id="trip-request-show">
 			<div class="container p-0" id="trip-info-card">       
 	      <ul>
 	        <li>
@@ -35,8 +35,8 @@
 
 		<%= simple_form_for @trip do |f| %>
 			<%= f.input :winch_id, as: :hidden, input_html: { value: @request.winch.id } %>
-			<%= f.input :win_init_lat, as: :hidden, input_html: { value: @request.winch.win_lat } %>
-			<%= f.input :win_init_long, as: :hidden, input_html: { value: @request.winch.win_long } %>
+			<%= f.input :win_init_lat, as: :hidden, input_html: { value: @request.winch.win_lat, id: 'win-lat' } %>
+			<%= f.input :win_init_long, as: :hidden, input_html: { value: @request.winch.win_long, id: 'win-lng' } %>
 			<%= f.button :submit, 'Aceitar solicitação', class: 'info-btn btn-sucess' %>
 		<% end %>
 
@@ -44,3 +44,16 @@
   <!--  -->
 
 </div>
+
+<% content_for :after_js do %>
+  <script>
+  	setRequestGeo = (position) => {
+		const lat = position.coords.latitude;
+		const lng = position.coords.longitude;
+		console.log(position);
+		document.querySelector('#win-lat').value  = lat;
+		document.querySelector('#win-lng').value  = lng;
+	}
+	navigator.geolocation.getCurrentPosition(setRequestGeo);
+  </script>
+<% end %>
