@@ -47,7 +47,7 @@ class TripsController < ApplicationController
         message = @client.messages.create(
                              body: "Você tem uma nova solicitação de serviço! Para ver as informações e aceitá-la, entre em www.savecarapp.com/requests/#{@trip_request.id}",
                              from: '+14433032789',
-                             to: '+5521971074051'
+                             to: '+5511996125717'
                            )
         puts message.sid
       # end
