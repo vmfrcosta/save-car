@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       when 'trip_requests'
         'position-absolute' if params[:action] == 'show'
       when 'trips'
-        'position-absolute' if params[:action] == 'new' || params[:action] == 'show'
+        'position-absolute' if params[:action] == 'new' || params[:action] == 'show' || params[:action] == 'delivered'
       when 'pages'
         'position-absolute' if params[:action] == 'home'
       else
