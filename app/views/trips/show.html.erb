@@ -2,7 +2,7 @@
 
   <!-- mapa -->
   <div
-    div id="map" style="height: 100vh;"
+    div id="map" style="height: 30rem;"
     data-markers="<%= @markers.to_json %>"
   ></div>
   <!--  -->
@@ -228,6 +228,7 @@
         const status = document.querySelector('#status').innerText
         const url = "<%= trip_win_loc_path(@trip.id) %>";
         
+        // map-zoom
         console.log(markers.length === 3)
         if (markers.length === 3) {
           fetch(`${url}?lat=${markers[2]['lat']}&lng=${markers[2]['lng']}&status=${status}&name=${name}&plate=${plate}`);

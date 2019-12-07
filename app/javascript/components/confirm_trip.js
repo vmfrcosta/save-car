@@ -39,9 +39,9 @@ const confirmInfo = () => {
 	const carLat = document.querySelector('#car-lat')
 	const carLong = document.querySelector('#car-long')
 
-
 	searchBtn.addEventListener('click', () => {
 		event.preventDefault();
+		document.querySelector('#map').style.height = '27rem'
 		const service = new google.maps.DistanceMatrixService();
 		const origin = {lat: parseFloat(carLat.value), lng: parseFloat(carLong.value)};
 
