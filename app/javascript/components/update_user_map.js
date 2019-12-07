@@ -16,8 +16,8 @@ const updateUserMap = (lat, lng, status) => {
 	} else if (status === 'arrived') {
 		
 		console.log(markers.length)
-		markers[1]['lat'] = parseFloat(lat)
-		markers[1]['lng'] = parseFloat(lng)
+		markers[0]['lat'] = parseFloat(lat)
+		markers[0]['lng'] = parseFloat(lng)
 		if (markers.length === 3) {
 			markers.pop()
 		}

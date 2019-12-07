@@ -173,13 +173,35 @@
             if (data['locals']['status'] === 'arrived' && status.innerText === 'on the way') {
               alert('Seu guincho chegou!')
             }
+            if (data['locals']['status'] === 'arrived') {
+              document.querySelector('#status-winch').innerText = 'Serviço em andamento'
+            }
             document.querySelector('#infos-winch').hidden = false
             status.innerText = data['locals']['status']
             document.querySelector('#winch-user-name').innerText = data['winch']['name']
             document.querySelector('#winch-plate').innerText = data['winch']['plate']
           // console.log(data);
             updateUserMap(data['locals']['lat'], data['locals']['lng'], data['locals']['status'])
-
+            const markers = eval(document.querySelector('#map').dataset.markers)
+            const service = new google.maps.DistanceMatrixService();
+            let origin = ''
+            let destiny = ''
+            if (markers.length === 3) {
+              origin = {lat: parseFloat(markers[1]['lat']), lng: parseFloat(markers[1]['lng'])};
+              destiny = {lat: parseFloat(markers[2]['lat']), lng: parseFloat(markers[2]['lng'])};
+            } else {
+              origin = {lat: parseFloat(markers[0]['lat']), lng: parseFloat(markers[0]['lng'])};
+              destiny = {lat: parseFloat(markers[1]['lat']), lng: parseFloat(markers[1]['lng'])};
+            }
+            service.getDistanceMatrix({
+              origins: [origin],
+              destinations: [destiny],
+              travelMode: 'DRIVING',
+            }, (response, status) => {
+              if (status === 'OK') {
+              document.querySelector('#time').innerText = response['rows'][0]['elements'][0]['duration']['text']
+              }
+            });
             
             if (data['locals']['status'] === 'delivered') {
               // console.log(data['locals']['status'])
