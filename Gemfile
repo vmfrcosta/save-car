@@ -18,7 +18,7 @@ gem 'uglifier'
 gem 'webpacker'
 gem 'geocoder'
 gem 'cloudinary', '~> 1.9.1'
-gem 'carrierwave', '~> 1.3.1'
+gem 'carrierwave', '~> 1.3.2'
 gem 'faker'
 
 group :development do
